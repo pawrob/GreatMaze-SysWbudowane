@@ -1,4 +1,4 @@
 # wbudy
  Repo pod systemy wbudowane 
 
-<h1>Wbudy eeeee</h1>
+<h1>Wbudy eeeee ziobro przestan mi aplikacje przesladowac</h1>
