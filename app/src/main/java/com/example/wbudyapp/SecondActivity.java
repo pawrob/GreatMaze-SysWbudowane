@@ -26,7 +26,7 @@ public class SecondActivity extends Activity implements SensorEventListener {
     //Poniżej po prostu obiekty, które możemy znaleźć w activity_main.xml
     private Button right, left;
     private ImageView star;
-    private TextView xMagValue, yMagValue, zMagValue;
+    private TextView xMagValue, yMagValue, zMagValue, starX, starY;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
 
@@ -42,6 +42,9 @@ public class SecondActivity extends Activity implements SensorEventListener {
         xMagValue = findViewById(R.id.xMagValue);
         yMagValue = findViewById(R.id.yMagValue);
         zMagValue = findViewById(R.id.zMagValue);
+        starX = findViewById(R.id.starX);
+        starY = findViewById(R.id.starY);
+
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
@@ -90,6 +93,8 @@ public class SecondActivity extends Activity implements SensorEventListener {
             xMagValue.setText("X: " + sensorEvent.values[0]);
             yMagValue.setText("Y: " + sensorEvent.values[1]);
             zMagValue.setText("Z: " + sensorEvent.values[2]);
+            starX.setText("Star X:" + star.getX());
+            starY.setText("Star Y:" + star.getY());
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
             star.setX( star.getX() + ( sensorEvent.values[0] - initialMagnetometerValues.get(0) )/5 );
             star.setY( star.getY() + ( sensorEvent.values[1] - initialMagnetometerValues.get(1) )/5 );
