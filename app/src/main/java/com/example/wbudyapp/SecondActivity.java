@@ -32,6 +32,9 @@ public class SecondActivity extends Activity implements SensorEventListener {
 =======
     private ImageView star;
     private TextView xMagValue, yMagValue, zMagValue;
+<<<<<<< HEAD
+>>>>>>> parent of c339731... Naprawienie bledu
+=======
 >>>>>>> parent of c339731... Naprawienie bledu
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
@@ -56,9 +59,12 @@ public class SecondActivity extends Activity implements SensorEventListener {
         yMagValue = findViewById(R.id.yMagValue);
         zMagValue = findViewById(R.id.zMagValue);
 <<<<<<< HEAD
+<<<<<<< HEAD
         ballX = findViewById(R.id.ballX);
         ballY = findViewById(R.id.ballY);
 
+=======
+>>>>>>> parent of c339731... Naprawienie bledu
 =======
 >>>>>>> parent of c339731... Naprawienie bledu
         //Inicjalizacja sensor Managera
@@ -110,8 +116,11 @@ public class SecondActivity extends Activity implements SensorEventListener {
             yMagValue.setText("Y: " + sensorEvent.values[1]);
             zMagValue.setText("Z: " + sensorEvent.values[2]);
 <<<<<<< HEAD
+<<<<<<< HEAD
             ballX.setText("Ball X:" + ball.getX());
             ballY.setText("Ball Y:" + ball.getY());
+=======
+>>>>>>> parent of c339731... Naprawienie bledu
 =======
 >>>>>>> parent of c339731... Naprawienie bledu
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
