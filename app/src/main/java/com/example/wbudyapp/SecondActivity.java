@@ -26,8 +26,13 @@ public class SecondActivity extends Activity implements SensorEventListener {
     private Sensor magnetometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w xmlowym
     private Button right, left;
+<<<<<<< HEAD
     private ImageView ball;
     private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
+=======
+    private ImageView star;
+    private TextView xMagValue, yMagValue, zMagValue;
+>>>>>>> parent of c339731... Naprawienie bledu
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
     private int screenHeight, screenWidth;
@@ -50,9 +55,12 @@ public class SecondActivity extends Activity implements SensorEventListener {
         xMagValue = findViewById(R.id.xMagValue);
         yMagValue = findViewById(R.id.yMagValue);
         zMagValue = findViewById(R.id.zMagValue);
+<<<<<<< HEAD
         ballX = findViewById(R.id.ballX);
         ballY = findViewById(R.id.ballY);
 
+=======
+>>>>>>> parent of c339731... Naprawienie bledu
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
@@ -101,8 +109,11 @@ public class SecondActivity extends Activity implements SensorEventListener {
             xMagValue.setText("X: " + sensorEvent.values[0]);
             yMagValue.setText("Y: " + sensorEvent.values[1]);
             zMagValue.setText("Z: " + sensorEvent.values[2]);
+<<<<<<< HEAD
             ballX.setText("Ball X:" + ball.getX());
             ballY.setText("Ball Y:" + ball.getY());
+=======
+>>>>>>> parent of c339731... Naprawienie bledu
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
             ball.setX( ball.getX() + ( sensorEvent.values[0] - initialMagnetometerValues.get(0) )/10 );
             ball.setY( ball.getY() + ( sensorEvent.values[1] - initialMagnetometerValues.get(1) )/10 );
