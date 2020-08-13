@@ -22,4 +22,10 @@ public class MainActivity extends AppCompatActivity {
         Intent startOfGame = new Intent(this,SecondActivity.class);
         startActivity(startOfGame);
     }
+
+    public void checkGps(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    {
+        Intent gpsCheck = new Intent(this,GpsActivity.class);
+        startActivity(gpsCheck);
+    }
 }
