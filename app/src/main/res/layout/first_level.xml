@@ -28,16 +28,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/star"
-        android:layout_width="118dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star" />
-
     <TextView
         android:id="@+id/yMagValue"
         android:layout_width="200dp"
@@ -75,27 +65,37 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/starX"
+        android:id="@+id/ballX"
         android:layout_width="236dp"
         android:layout_height="55dp"
         android:layout_marginBottom="200dp"
         android:text="TextView"
         android:textColor="#FF0000"
-        android:textSize="36sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/starY"
+        android:id="@+id/ballY"
         android:layout_width="245dp"
         android:layout_height="57dp"
         android:layout_marginBottom="100dp"
         android:text="TextView"
         android:textColor="#FF0000"
-        android:textSize="36sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ball"
+        android:layout_width="81dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/presence_online" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

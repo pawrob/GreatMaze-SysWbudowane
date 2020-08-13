@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,27 +24,34 @@ public class SecondActivity extends Activity implements SensorEventListener {
     public String TAG = "My app ";
     private SensorManager sensorManager;
     private Sensor magnetometer;
-    //Poniżej po prostu obiekty, które możemy znaleźć w activity_main.xml
+    //Poniżej po prostu obiekty, które możemy znaleźć w xmlowym
     private Button right, left;
-    private ImageView star;
-    private TextView xMagValue, yMagValue, zMagValue, starX, starY;
+    private ImageView ball;
+    private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
+    private int screenHeight, screenWidth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//metoda z Activity
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.first_level);
+
+        //Pobieranie rozmiaru ekranu
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenHeight = metrics.heightPixels;
+        screenWidth = metrics.widthPixels;
 
         right = findViewById(R.id.rightButton);
         left = findViewById(R.id.leftButton);
-        star = findViewById(R.id.star);
+        ball = findViewById(R.id.ball);
 
         xMagValue = findViewById(R.id.xMagValue);
         yMagValue = findViewById(R.id.yMagValue);
         zMagValue = findViewById(R.id.zMagValue);
-        starX = findViewById(R.id.starX);
-        starY = findViewById(R.id.starY);
+        ballX = findViewById(R.id.ballX);
+        ballY = findViewById(R.id.ballY);
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -65,13 +73,13 @@ public class SecondActivity extends Activity implements SensorEventListener {
         right.setOnClickListener ( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                star.setX( star.getX() + 3 );
+                ball.setX( ball.getX() + 3 );
             }
         } );
         left.setOnClickListener ( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                star.setX( star.getX() - 3 );
+                ball.setX( ball.getX() - 3 );
             }
         } );
 
@@ -93,11 +101,15 @@ public class SecondActivity extends Activity implements SensorEventListener {
             xMagValue.setText("X: " + sensorEvent.values[0]);
             yMagValue.setText("Y: " + sensorEvent.values[1]);
             zMagValue.setText("Z: " + sensorEvent.values[2]);
-            starX.setText("Star X:" + star.getX());
-            starY.setText("Star Y:" + star.getY());
+            ballX.setText("Ball X:" + ball.getX());
+            ballY.setText("Ball Y:" + ball.getY());
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
-            star.setX( star.getX() + ( sensorEvent.values[0] - initialMagnetometerValues.get(0) )/5 );
-            star.setY( star.getY() + ( sensorEvent.values[1] - initialMagnetometerValues.get(1) )/5 );
+            ball.setX( ball.getX() + ( sensorEvent.values[0] - initialMagnetometerValues.get(0) )/10 );
+            ball.setY( ball.getY() + ( sensorEvent.values[1] - initialMagnetometerValues.get(1) )/10 );
+            if(ball.getX() > screenWidth) ball.setX(0);
+            if(ball.getX() < 0) ball.setX(screenWidth);
+            if(ball.getY() > screenHeight) ball.setY(0);
+            if(ball.getY() < 0) ball.setY(screenHeight);
 
         }
 
