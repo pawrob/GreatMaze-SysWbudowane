@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.pow;
+
 public class SecondActivity extends Activity implements SensorEventListener {
 
     //Deklaracje tego, czego będziemy używać
@@ -26,8 +28,7 @@ public class SecondActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor magnetometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w activity_main.xml
-    private Button right, left;
-    private ImageView ball;
+    private ImageView ball,studnia;
     private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
@@ -44,9 +45,8 @@ public class SecondActivity extends Activity implements SensorEventListener {
         screenWidth = metrics.widthPixels;
         screenHeight = metrics.heightPixels;
 
-        right = findViewById(R.id.rightButton);
-        left = findViewById(R.id.leftButton);
         ball = findViewById(R.id.ball);
+        studnia = findViewById(R.id.studnia);
 
         xMagValue = findViewById(R.id.xMagValue);
         yMagValue = findViewById(R.id.yMagValue);
@@ -69,19 +69,6 @@ public class SecondActivity extends Activity implements SensorEventListener {
         {
             Log.v(TAG,"On create: listener is not available");
         }
-
-        right.setOnClickListener ( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ball.setX( ball.getX() + 3 );
-            }
-        } );
-        left.setOnClickListener ( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ball.setX( ball.getX() - 3 );
-            }
-        } );
 
     }
     //Ogółem nasza aplikacja tutaj opiera się na tym, że eventy wywołują się jak tylko otrzymamy sygnał z sensora.
@@ -110,6 +97,12 @@ public class SecondActivity extends Activity implements SensorEventListener {
             if(ball.getX() < ( 0 - ball.getWidth() ) ) ball.setX(screenWidth);
             if(ball.getY() > screenHeight ) ball.setY(0 + ball.getHeight());
             if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);
+            boolean finished = this.checkIfStudnia(ball,studnia);
+            if(finished)
+            {
+                ball.setX(100);
+                ball.setY(100);
+            }
 
 
         }
@@ -119,6 +112,19 @@ public class SecondActivity extends Activity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    public boolean checkIfStudnia(ImageView ball, ImageView studnia)
+    {
+        //Na sztywno zakodowany promien studni jako 25 oraz srednice kuli jako 30
+        if ( pow( ( ball.getX() - studnia.getX() ),2) + pow( ( ball.getY() - studnia.getY() ),2) < 25*25 )
+        {
+            if ( pow( ( ball.getX() + 30 - studnia.getX() ),2) + pow( ( ball.getY() + 30 - studnia.getY() ),2) < 25*25 )
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
