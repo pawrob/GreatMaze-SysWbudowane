@@ -7,13 +7,13 @@
     tools:context=".GpsActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/background"
         android:layout_width="689dp"
         android:layout_height="846dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pexels_photo_2479882_01"
-        tools:layout_editor_absoluteY="-73dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pexels_photo_2479882_01" />
 
     <TextView
         android:id="@+id/textView"
@@ -44,6 +44,7 @@
         android:layout_marginBottom="400dp"
         android:text="You are here:"
         android:textColor="#FFFFFF"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,6 +56,7 @@
         android:layout_marginBottom="370dp"
         android:text="Latitude"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -66,6 +68,7 @@
         android:layout_marginBottom="350dp"
         android:text="Longitude"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
