@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 
 public class SecondActivity extends Activity implements SensorEventListener {
@@ -32,6 +33,7 @@ public class SecondActivity extends Activity implements SensorEventListener {
     private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
+    private ArrayList<View> walls;
     private int screenWidth, screenHeight;
 
     @Override
@@ -70,6 +72,13 @@ public class SecondActivity extends Activity implements SensorEventListener {
             Log.v(TAG,"On create: listener is not available");
         }
 
+        walls.add(findViewById(R.id.wall1 ) );
+        walls.add(findViewById(R.id.left ) );
+        walls.add(findViewById(R.id.right ) );
+        walls.add(findViewById(R.id.top ) );
+        walls.add(findViewById(R.id.bottom ) );
+
+
     }
     //Ogółem nasza aplikacja tutaj opiera się na tym, że eventy wywołują się jak tylko otrzymamy sygnał z sensora.
     //W naszej aplikacji sygnały otrzymujemy z częstością podaną przy rejestracji menedżera (SENSOR_DELAY_UI)
@@ -90,8 +99,13 @@ public class SecondActivity extends Activity implements SensorEventListener {
             zMagValue.setText("Z: " + sensorEvent.values[2]);
             ballX.setText("Ball X: " + ball.getX());
             ballY.setText("Ball Y: " + ball.getY());
+
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
-            ball.setX( ball.getX() + ( sensorEvent.values[0] - initialMagnetometerValues.get(0) )/5 );
+
+            float changeX = sensorEvent.values[0] - initialMagnetometerValues.get(0) /5;
+            if(changeX < 0 && this.checkIfLeft(ball,walls) ) ball.setX( ball.getX() + changeX );
+            if(changeX > 0 && this.checkIfRight(ball,walls) ) ball.setX( ball.getX() + changeX );
+
             ball.setY( ball.getY() + ( sensorEvent.values[1] - initialMagnetometerValues.get(1) )/5 );
             if(ball.getX() > screenWidth) ball.setX(0 - ball.getWidth());
             if(ball.getX() < ( 0 - ball.getWidth() ) ) ball.setX(screenWidth);
@@ -125,6 +139,26 @@ public class SecondActivity extends Activity implements SensorEventListener {
             }
         }
         return false;
+    }
+    public boolean checkIfLeft(ImageView ball, ArrayList<View> walls)
+    {
+        boolean correct = true;
+        for(int i=0;i<walls.size();i++)
+        {
+            if( abs(ball.getX() -  (walls.get(i).getX() + walls.get(i).getWidth() ) ) < 1 )
+                correct = false;
+        }
+        return correct;
+    }
+    public boolean checkIfRight(ImageView ball, ArrayList<View> walls)
+    {
+        boolean correct = true;
+        for(int i=0;i<walls.size();i++)
+        {
+            if( abs(ball.getX() + 30 - (walls.get(i).getX() ) ) < 1 )
+                correct = false;
+        }
+        return correct;
     }
 
 }
