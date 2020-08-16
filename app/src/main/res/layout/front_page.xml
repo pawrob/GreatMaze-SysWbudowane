@@ -9,12 +9,14 @@
     android:background="@android:color/background_dark"
     >
 
+
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/gifTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/maze2" />
-
+        android:background="@drawable/maze2"
+        tools:layout_editor_absoluteX="-29dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/startButton"
@@ -62,6 +64,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="#00FFFFFF"
+        android:onClick="checkShake"
+        android:text="TEST SHAKE"
+        android:textColor="#FFC107"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
