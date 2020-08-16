@@ -118,7 +118,7 @@ public class SecondActivity extends Activity implements SensorEventListener {
             boolean finished = this.checkIfStudnia(ball,studnia);
             if(finished)
             {
-                Intent startOfGame = new Intent(this,SecondLevel.class);
+                Intent startOfGame = new Intent(this,ShakeActivity.class);
                 startActivity(startOfGame);
             }
 
