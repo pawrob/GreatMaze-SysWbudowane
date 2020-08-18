@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -66,30 +67,30 @@ public class ThirdLevel extends Activity implements SensorEventListener {
         {
             Log.v(TAG,"On create: listener is not available");
         }
-
-        walls.add(findViewById(R.id.wall1 ) );
-        walls.add(findViewById(R.id.wall2 ) );
-        walls.add(findViewById(R.id.wall3 ) );
-        walls.add(findViewById(R.id.wall4 ) );
-        walls.add(findViewById(R.id.wall5 ) );
-        walls.add(findViewById(R.id.wall6 ) );
-        walls.add(findViewById(R.id.wall7 ) );
-        walls.add(findViewById(R.id.wall8 ) );
-        walls.add(findViewById(R.id.wall9 ) );
-        walls.add(findViewById(R.id.wall10 ) );
-        walls.add(findViewById(R.id.wall12 ) );
-        walls.add(findViewById(R.id.wall13 ) );
-        walls.add(findViewById(R.id.wall14 ) );
-        walls.add(findViewById(R.id.wall16 ) );
-        walls.add(findViewById(R.id.wall17 ) );
-        walls.add(findViewById(R.id.wall18 ) );
-        walls.add(findViewById(R.id.wall19 ) );
-        walls.add(findViewById(R.id.wall20 ) );
-        walls.add(findViewById(R.id.wall21 ) );
-        walls.add(findViewById(R.id.left ) );
-        walls.add(findViewById(R.id.right ) );
-        walls.add(findViewById(R.id.top ) );
-        walls.add(findViewById(R.id.bottom ) );
+         walls.add(findViewById(R.id.wall ) );
+         walls.add(findViewById(R.id.wall1 ) );
+//        walls.add(findViewById(R.id.wall2 ) );
+//        walls.add(findViewById(R.id.wall3 ) );
+//        walls.add(findViewById(R.id.wall4 ) );
+//        walls.add(findViewById(R.id.wall5 ) );
+         walls.add(findViewById(R.id.wall6 ) );
+         walls.add(findViewById(R.id.wall7 ) );
+         walls.add(findViewById(R.id.wall8 ) );
+         walls.add(findViewById(R.id.wall9 ) );
+         walls.add(findViewById(R.id.wall10 ) );
+         walls.add(findViewById(R.id.wall12 ) );
+         walls.add(findViewById(R.id.wall13 ) );
+         walls.add(findViewById(R.id.wall14 ) );
+         walls.add(findViewById(R.id.wall16 ) );
+         walls.add(findViewById(R.id.wall17 ) );
+         walls.add(findViewById(R.id.wall18 ) );
+         walls.add(findViewById(R.id.wall19 ) );
+         walls.add(findViewById(R.id.wall20 ) );
+         walls.add(findViewById(R.id.wall21 ) );
+         walls.add(findViewById(R.id.left ) );
+         walls.add(findViewById(R.id.right ) );
+         walls.add(findViewById(R.id.top ) );
+         walls.add(findViewById(R.id.bottom ) );
 
 
     }
@@ -123,7 +124,9 @@ public class ThirdLevel extends Activity implements SensorEventListener {
             boolean finished = this.checkIfStudnia(ball,studnia);
             if(finished)
             {
+
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
+                ShakeActivity.level="czwarty";
                 startActivity(startOfGame);
             }
 

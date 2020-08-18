@@ -7,15 +7,20 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
@@ -35,7 +40,7 @@ public class FirstLevel extends Activity implements SensorEventListener {
     private ArrayList<Float> initialMagnetometerValues;
     private ArrayList<View> walls;
     private int screenWidth, screenHeight;
-
+    private Vibrator vibrator;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//metoda z Activity
@@ -85,6 +90,7 @@ public class FirstLevel extends Activity implements SensorEventListener {
     //W naszej aplikacji sygnały otrzymujemy z częstością podaną przy rejestracji menedżera (SENSOR_DELAY_UI)
     //Zasadniczo nie wiem czy dobrze, żeby nasza aplikacja wykonywała czynności na podstawie tego, czy jest sygnał z sensora
     //ale nie wiem jak zrobić, aby jakaś czynność wykonywała się stale, niezależnie od sygnałów z sensora, tak jak na kompo
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor sensor = sensorEvent.sensor;
@@ -116,7 +122,8 @@ public class FirstLevel extends Activity implements SensorEventListener {
             boolean finished = this.checkIfStudnia(ball,studnia);
             if(finished)
             {
-                Intent startOfGame = new Intent(this,SecondLevel.class);
+                                Intent startOfGame = new Intent(this,ShakeActivity.class);
+                ShakeActivity.level="second";
                 startActivity(startOfGame);
             }
 

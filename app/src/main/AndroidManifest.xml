@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -14,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShakeActivity"/>
+        <activity android:name=".TestLevels"></activity>
+        <activity android:name=".ShakeActivity" />
         <activity android:name=".GpsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,7 +26,6 @@
         <activity android:name=".FirstLevel" />
         <activity android:name=".SecondLevel" />
         <activity android:name=".ThirdLevel" />
-
     </application>
 
 </manifest>

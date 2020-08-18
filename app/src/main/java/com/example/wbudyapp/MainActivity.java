@@ -43,4 +43,10 @@ public class MainActivity extends AppCompatActivity {
         Intent shakeCheck = new Intent(this,ShakeActivity.class);
         startActivity(shakeCheck);
     }
+
+    public void checkLevel(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    {
+        Intent lvlCheck = new Intent(this,TestLevels.class);
+        startActivity(lvlCheck);
+    }
 }
