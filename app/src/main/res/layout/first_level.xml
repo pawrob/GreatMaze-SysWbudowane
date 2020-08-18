@@ -82,19 +82,17 @@
         android:id="@+id/ball"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ball"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/left"
+        app:layout_constraintTop_toBottomOf="@+id/top" />
 
     <View
         android:id="@+id/left"
-        android:layout_width="5dp"
+        android:layout_width="10dp"
         android:layout_height="0dp"
         android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
         android:background="#000000"
@@ -104,7 +102,7 @@
 
     <View
         android:id="@+id/wall1"
-        android:layout_width="5dp"
+        android:layout_width="10dp"
         android:layout_height="0dp"
         android:layout_marginBottom="50dp"
         android:background="#000000"
@@ -117,7 +115,7 @@
 
     <View
         android:id="@+id/right"
-        android:layout_width="5dp"
+        android:layout_width="10dp"
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
@@ -132,7 +130,7 @@
     <View
         android:id="@+id/bottom"
         android:layout_width="0dp"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_marginBottom="50dp"
         android:background="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -142,7 +140,7 @@
     <View
         android:id="@+id/top"
         android:layout_width="0dp"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_marginTop="50dp"
         android:background="#000000"
         app:layout_constraintEnd_toStartOf="@+id/right"

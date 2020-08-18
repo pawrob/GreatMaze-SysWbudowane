@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import android.hardware.SensorEventCallback;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 
-public class SecondLevel extends Activity implements SensorEventListener {
+public class FirstLevel extends Activity implements SensorEventListener {
 
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ";
@@ -32,6 +30,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
     private Sensor magnetometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
+    private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
     private ArrayList<View> walls;
@@ -40,7 +39,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//metoda z Activity
-        setContentView(R.layout.second_level);
+        setContentView(R.layout.first_level);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         DisplayMetrics metrics = new DisplayMetrics();
@@ -52,6 +51,11 @@ public class SecondLevel extends Activity implements SensorEventListener {
         studnia = findViewById(R.id.studnia);
         walls = new ArrayList<View>();
 
+        xMagValue = findViewById(R.id.xMagValue);
+        yMagValue = findViewById(R.id.yMagValue);
+        zMagValue = findViewById(R.id.zMagValue);
+        ballX = findViewById(R.id.ballX);
+        ballY = findViewById(R.id.ballY);
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
@@ -70,10 +74,6 @@ public class SecondLevel extends Activity implements SensorEventListener {
         }
 
         walls.add(findViewById(R.id.wall1 ) );
-        walls.add(findViewById(R.id.wall2 ) );
-        walls.add(findViewById(R.id.wall3 ) );
-        walls.add(findViewById(R.id.wall4 ) );
-        walls.add(findViewById(R.id.wall5 ) );
         walls.add(findViewById(R.id.left ) );
         walls.add(findViewById(R.id.right ) );
         walls.add(findViewById(R.id.top ) );
@@ -95,6 +95,11 @@ public class SecondLevel extends Activity implements SensorEventListener {
         }
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
         if( sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD ) {
+            xMagValue.setText("X: " + sensorEvent.values[0]);
+            yMagValue.setText("Y: " + sensorEvent.values[1]);
+            zMagValue.setText("Z: " + sensorEvent.values[2]);
+            ballX.setText("Ball X: " + ball.getX());
+            ballY.setText("Ball Y: " + ball.getY());
 
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
 
@@ -111,7 +116,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
             boolean finished = this.checkIfStudnia(ball,studnia);
             if(finished)
             {
-                Intent startOfGame = new Intent(this,ThirdLevel.class);
+                Intent startOfGame = new Intent(this,SecondLevel.class);
                 startActivity(startOfGame);
             }
 
@@ -130,7 +135,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
         //Na sztywno zakodowany promien studni jako 25 oraz srednice kuli jako 30
         if ( pow( ( ball.getX() + ball.getWidth()/2 - (studnia.getX() + studnia.getWidth()/2) ),2)
                 + pow( ( ball.getY() + ball.getHeight()/2 - (studnia.getY() + studnia.getHeight()/2) ),2) <
-                pow(studnia.getWidth()/2 - ball.getWidth()/2,2) ) return true;
+                    pow(studnia.getWidth()/2 - ball.getWidth()/2,2) ) return true;
         return false;
     }
     public void move(ImageView ball, ArrayList<View> walls, float x, float y)
@@ -142,7 +147,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
         if(changeX < 0)
         {
             if( ! ( doesThePointCoverAnyWall(ball.getX() - 5,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() - 5,ball.getY()+ball.getHeight(),walls) ) )
+            doesThePointCoverAnyWall(ball.getX() - 5,ball.getY()+ball.getHeight(),walls) ) )
             {
                 ball.setX( ball.getX() + changeX );
             }

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
-        Intent startOfGame = new Intent(this,SecondActivity.class);
+        Intent startOfGame = new Intent(this,FirstLevel.class);
                 startActivity(startOfGame);
     }
 
