@@ -13,11 +13,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
 import android.widget.TextView;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
 //                        Toast.makeText(getApplicationContext(),"Shake!" , Toast.LENGTH_SHORT).show();
 public class ShakeActivity extends AppCompatActivity implements SensorEventListener {
 
-    public static String level="first";
+    public String nextLevel;
     private TextView xValue, yValue, zValue,levelInfo;
     private SensorManager sensorManager;
     private Sensor accrelerometerSensor;
@@ -40,6 +45,9 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
+        Intent intent = getIntent();
+        nextLevel = intent.getStringExtra("LEVELNUMBER");
+
         if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!=null){
             accrelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             isAccelerometer=true;
@@ -53,11 +61,13 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
 
 
         if(level.equals("second")){
-            Intent startOfGame = new Intent(this,SecondLevel.class);
+            Intent startOfGame = new Intent(this,LevelActivity.class);
+            startOfGame.putExtra("LEVELNUMBER",2);
             startActivity(startOfGame);
         }
         if(level.equals("third")){
             Intent startOfGame = new Intent(this,ThirdLevel.class);
+            startOfGame.putExtra("LEVELNUMBER",3);
             startActivity(startOfGame);
         }
 
@@ -66,7 +76,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        levelInfo.setText("Poziom: "+ level);
+        levelInfo.setText("Poziom: "+ nextLevel);
         xValue.setText(sensorEvent.values[0]+"m/s2");
         yValue.setText(sensorEvent.values[1]+"m/s2");
         zValue.setText(sensorEvent.values[2]+"m/s2");
@@ -82,7 +92,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
                     if((xDiv>shakeStep & yDiv>shakeStep)||(xDiv>shakeStep & zDiv>shakeStep) || (yDiv>shakeStep & zDiv>shakeStep)){
                         vibrator.vibrate(VibrationEffect.createOneShot(500,VibrationEffect.DEFAULT_AMPLITUDE)); //<----------------------- Tutaj wpisujemy do funkcji to co ma sie dziac po shake
 
-                        levelPick(level);
+                        levelPick(nextLevel);
 
                     }
             }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 
@@ -32,10 +33,12 @@ public class FirstLevel extends Activity implements SensorEventListener {
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ";
     private SensorManager sensorManager;
-    private Sensor magnetometer;
+    private Sensor magnetometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
     private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
+    private ConstraintLayout background;
+
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
     private ArrayList<View> walls;
@@ -55,19 +58,27 @@ public class FirstLevel extends Activity implements SensorEventListener {
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
         walls = new ArrayList<View>();
+        background = findViewById(R.id.background);
 
         xMagValue = findViewById(R.id.xMagValue);
         yMagValue = findViewById(R.id.yMagValue);
         zMagValue = findViewById(R.id.zMagValue);
         ballX = findViewById(R.id.ballX);
         ballY = findViewById(R.id.ballY);
+
+
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
         initialMagnetometerValues = new ArrayList<Float>();
+        initialMagnetometerValues.add(0, new Float(0));
+        initialMagnetometerValues.add(1,new Float(48.4));
+        initialMagnetometerValues.add(2,new Float(5.9));
+
 
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         if(magnetometer != null )
         {
             sensorManager.registerListener( (SensorEventListener) this, magnetometer, SensorManager.SENSOR_DELAY_UI );
@@ -76,6 +87,15 @@ public class FirstLevel extends Activity implements SensorEventListener {
         else
         {
             Log.v(TAG,"On create: listener is not available");
+        }
+        if(thermometer != null )
+        {
+            sensorManager.registerListener( (SensorEventListener) this, thermometer, SensorManager.SENSOR_DELAY_NORMAL );
+            Log.d(TAG,"On create: thermomether listener has been launched");
+        }
+        else
+        {
+            Log.v(TAG,"On create: thermomether listener is not available");
         }
 
         walls.add(findViewById(R.id.wall1 ) );
@@ -123,11 +143,17 @@ public class FirstLevel extends Activity implements SensorEventListener {
             if(finished)
             {
                                 Intent startOfGame = new Intent(this,ShakeActivity.class);
-                ShakeActivity.level="second";
+                                startOfGame.putExtra("LEVELNUMBER","second");
+                //ShakeActivity.level="second";
                 startActivity(startOfGame);
             }
 
 
+        }
+        if(sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE)
+        {
+            if(sensorEvent.values[0] < 20) background.setBackgroundColor(0xA833C5CA);
+            else background.setBackgroundColor(0xFFF4B648);
         }
 
     }
@@ -150,7 +176,7 @@ public class FirstLevel extends Activity implements SensorEventListener {
         //changeX - zmiana w poziomie (lewo prawo)
         float changeX = ( x - initialMagnetometerValues.get(0) ) /5;
         //changeY - zmiana w pionie (góra dół)
-        float changeY = ( initialMagnetometerValues.get(0) - y ) /5;
+        float changeY = ( initialMagnetometerValues.get(2) - y ) /5;
         if(changeX < 0)
         {
             if( ! ( doesThePointCoverAnyWall(ball.getX() - 5,ball.getY(),walls) ||

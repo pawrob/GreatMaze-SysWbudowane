@@ -7,7 +7,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
@@ -24,24 +28,84 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 
-public class ThirdLevel extends Activity implements SensorEventListener {
+public class LevelActivity extends Activity implements SensorEventListener {
 
     //Deklaracje tego, czego będziemy używać
-    public String TAG = "My app ";
+    public String TAG = "My app ", nextLevel;
     private SensorManager sensorManager;
     private Sensor magnetometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
+    private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
+    private ConstraintLayout background;
+
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialMagnetometerValues;
     private ArrayList<View> walls;
     private int screenWidth, screenHeight;
-    private ConstraintLayout background;
-
+    private Vibrator vibrator;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//metoda z Activity
-        setContentView(R.layout.third_level);
+
+        walls = new ArrayList<View>();
+        Intent intent = getIntent();
+        int levelNumber = intent.getIntExtra("LEVELNUMBER", 1);
+        if (levelNumber == 1)
+        {
+            setContentView(R.layout.first_level);
+            walls.add(findViewById(R.id.wall1 ) );
+            walls.add(findViewById(R.id.left ) );
+            walls.add(findViewById(R.id.right ) );
+            walls.add(findViewById(R.id.top ) );
+            walls.add(findViewById(R.id.bottom ) );
+            nextLevel = "second";
+        }
+        if (levelNumber == 2)
+        {
+            setContentView(R.layout.second_level);
+            walls.add(findViewById(R.id.wall1 ) );
+            walls.add(findViewById(R.id.wall2 ) );
+            walls.add(findViewById(R.id.wall3 ) );
+            walls.add(findViewById(R.id.wall4 ) );
+            walls.add(findViewById(R.id.wall5 ) );
+            walls.add(findViewById(R.id.left ) );
+            walls.add(findViewById(R.id.right ) );
+            walls.add(findViewById(R.id.top ) );
+            walls.add(findViewById(R.id.bottom ) );
+            nextLevel = "third";
+        }
+        if (levelNumber == 3)
+        {
+            setContentView(R.layout.third_level);
+            walls.add(findViewById(R.id.wall ) );
+            walls.add(findViewById(R.id.wall1 ) );
+//        walls.add(findViewById(R.id.wall2 ) );
+//        walls.add(findViewById(R.id.wall3 ) );
+//        walls.add(findViewById(R.id.wall4 ) );
+//        walls.add(findViewById(R.id.wall5 ) );
+            walls.add(findViewById(R.id.wall6 ) );
+            walls.add(findViewById(R.id.wall7 ) );
+            walls.add(findViewById(R.id.wall8 ) );
+            walls.add(findViewById(R.id.wall9 ) );
+            walls.add(findViewById(R.id.wall10 ) );
+            walls.add(findViewById(R.id.wall12 ) );
+            walls.add(findViewById(R.id.wall13 ) );
+            walls.add(findViewById(R.id.wall14 ) );
+            walls.add(findViewById(R.id.wall16 ) );
+            walls.add(findViewById(R.id.wall17 ) );
+            walls.add(findViewById(R.id.wall18 ) );
+            walls.add(findViewById(R.id.wall19 ) );
+            walls.add(findViewById(R.id.wall20 ) );
+            walls.add(findViewById(R.id.wall21 ) );
+            walls.add(findViewById(R.id.left ) );
+            walls.add(findViewById(R.id.right ) );
+            walls.add(findViewById(R.id.top ) );
+            walls.add(findViewById(R.id.bottom ) );
+            nextLevel = "fourth";
+        }
+
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         DisplayMetrics metrics = new DisplayMetrics();
@@ -51,18 +115,27 @@ public class ThirdLevel extends Activity implements SensorEventListener {
 
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
-        walls = new ArrayList<View>();
         background = findViewById(R.id.background);
+
+        xMagValue = findViewById(R.id.xMagValue);
+        yMagValue = findViewById(R.id.yMagValue);
+        zMagValue = findViewById(R.id.zMagValue);
+        ballX = findViewById(R.id.ballX);
+        ballY = findViewById(R.id.ballY);
+
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
         initialMagnetometerValues = new ArrayList<Float>();
+        initialMagnetometerValues.add(0, new Float(0));
+        initialMagnetometerValues.add(1,new Float(48.4));
+        initialMagnetometerValues.add(2,new Float(5.9));
+
 
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-
         if(magnetometer != null )
         {
             sensorManager.registerListener( (SensorEventListener) this, magnetometer, SensorManager.SENSOR_DELAY_UI );
@@ -82,30 +155,6 @@ public class ThirdLevel extends Activity implements SensorEventListener {
             Log.v(TAG,"On create: thermomether listener is not available");
         }
 
-         walls.add(findViewById(R.id.wall ) );
-         walls.add(findViewById(R.id.wall1 ) );
-//        walls.add(findViewById(R.id.wall2 ) );
-//        walls.add(findViewById(R.id.wall3 ) );
-//        walls.add(findViewById(R.id.wall4 ) );
-//        walls.add(findViewById(R.id.wall5 ) );
-         walls.add(findViewById(R.id.wall6 ) );
-         walls.add(findViewById(R.id.wall7 ) );
-         walls.add(findViewById(R.id.wall8 ) );
-         walls.add(findViewById(R.id.wall9 ) );
-         walls.add(findViewById(R.id.wall10 ) );
-         walls.add(findViewById(R.id.wall12 ) );
-         walls.add(findViewById(R.id.wall13 ) );
-         walls.add(findViewById(R.id.wall14 ) );
-         walls.add(findViewById(R.id.wall16 ) );
-         walls.add(findViewById(R.id.wall17 ) );
-         walls.add(findViewById(R.id.wall18 ) );
-         walls.add(findViewById(R.id.wall19 ) );
-         walls.add(findViewById(R.id.wall20 ) );
-         walls.add(findViewById(R.id.wall21 ) );
-         walls.add(findViewById(R.id.left ) );
-         walls.add(findViewById(R.id.right ) );
-         walls.add(findViewById(R.id.top ) );
-         walls.add(findViewById(R.id.bottom ) );
 
 
     }
@@ -113,20 +162,26 @@ public class ThirdLevel extends Activity implements SensorEventListener {
     //W naszej aplikacji sygnały otrzymujemy z częstością podaną przy rejestracji menedżera (SENSOR_DELAY_UI)
     //Zasadniczo nie wiem czy dobrze, żeby nasza aplikacja wykonywała czynności na podstawie tego, czy jest sygnał z sensora
     //ale nie wiem jak zrobić, aby jakaś czynność wykonywała się stale, niezależnie od sygnałów z sensora, tak jak na kompo
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor sensor = sensorEvent.sensor;
         //Jeśli tablica jest pusta, to wpisujemy wartości inicjalizacyjne, w odniesieniu do których będzie poruszać się gwiazdka
-        if(initialMagnetometerValues.size() == 0)
+        /*if(initialMagnetometerValues.size() == 0)
         {
             for(int i=0; i < 3; i++) initialMagnetometerValues.add(sensorEvent.values[i]);
-        }
+        }*/
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
         if( sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD ) {
+            xMagValue.setText("X: " + sensorEvent.values[0]);
+            yMagValue.setText("Y: " + sensorEvent.values[1]);
+            zMagValue.setText("Z: " + sensorEvent.values[2]);
+            ballX.setText("Ball X: " + ball.getX());
+            ballY.setText("Ball Y: " + ball.getY());
 
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
 
-            this.move(ball,walls,sensorEvent.values[0],sensorEvent.values[1]);
+            this.move(ball,walls,sensorEvent.values[0],sensorEvent.values[2]);
             /*float changeX = ( sensorEvent.values[0] - initialMagnetometerValues.get(0) ) /5;
             if(changeX < 0 && this.checkIfLeft(ball,walls) ) ball.setX( ball.getX() + changeX );
             if(changeX > 0 && this.checkIfRight(ball,walls) ) ball.setX( ball.getX() + changeX );
@@ -139,9 +194,8 @@ public class ThirdLevel extends Activity implements SensorEventListener {
             boolean finished = this.checkIfStudnia(ball,studnia);
             if(finished)
             {
-
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
-                //ShakeActivity.level="czwarty";
+                startOfGame.putExtra("LEVELNUMBER", nextLevel);
                 startActivity(startOfGame);
             }
 
@@ -162,45 +216,46 @@ public class ThirdLevel extends Activity implements SensorEventListener {
 
     public boolean checkIfStudnia(ImageView ball, ImageView studnia)
     {
+        //Na sztywno zakodowany promien studni jako 25 oraz srednice kuli jako 30
         if ( pow( ( ball.getX() + ball.getWidth()/2 - (studnia.getX() + studnia.getWidth()/2) ),2)
                 + pow( ( ball.getY() + ball.getHeight()/2 - (studnia.getY() + studnia.getHeight()/2) ),2) <
-                pow(studnia.getWidth()/2 - ball.getWidth()/2,2) ) return true;
+                pow(studnia.getWidth()/2,2) ) return true;
         return false;
     }
-    public void move(ImageView ball, ArrayList<View> walls, float x, float y)
+    public void move(ImageView ball, ArrayList<View> walls, float x, float z)
     {
         //changeX - zmiana w poziomie (lewo prawo)
-        float changeX = ( x - initialMagnetometerValues.get(0) ) /5;
+        float changeX = ( initialMagnetometerValues.get(0) - x);
         //changeY - zmiana w pionie (góra dół)
-        float changeY = ( initialMagnetometerValues.get(2) - y ) /5;
+        float changeY = ( initialMagnetometerValues.get(2) - z ) /3;
         if(changeX < 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX() - 5,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() - 5,ball.getY()+ball.getHeight(),walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() - 2,ball.getY(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() - 2,ball.getY()+ball.getHeight(),walls) ) )
             {
                 ball.setX( ball.getX() + changeX );
             }
         }
         if(changeX > 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + 5,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + 5,ball.getY()+ball.getHeight(),walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + 2,ball.getY(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + 2,ball.getY()+ball.getHeight(),walls) ) )
             {
                 ball.setX( ball.getX() + changeX );
             }
         }
         if(changeY < 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() - 5,walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() - 5,walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() - 2,walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() - 2,walls) ) )
             {
                 ball.setY( ball.getY() + changeY );
             }
         }
         if(changeY > 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + ball.getHeight() + 5 ,walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + ball.getHeight() + 5,walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + ball.getHeight() + 2 ,walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + ball.getHeight() + 2,walls) ) )
             {
                 ball.setY( ball.getY() + changeY );
             }

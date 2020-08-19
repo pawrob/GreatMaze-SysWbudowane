@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ";
     private SensorManager sensorManager;
-    private Sensor magnetometer;
+    private Sensor magnetometer,thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
@@ -42,6 +43,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
     private ArrayList<View> walls;
     private int screenWidth, screenHeight;
     private Vibrator vibrator;
+    private ConstraintLayout background;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//metoda z Activity
@@ -56,6 +58,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
         walls = new ArrayList<View>();
+        background = findViewById(R.id.background);
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -64,6 +67,8 @@ public class SecondLevel extends Activity implements SensorEventListener {
 
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
         if(magnetometer != null )
         {
             sensorManager.registerListener( (SensorEventListener) this, magnetometer, SensorManager.SENSOR_DELAY_UI );
@@ -72,6 +77,15 @@ public class SecondLevel extends Activity implements SensorEventListener {
         else
         {
             Log.v(TAG,"On create: listener is not available");
+        }
+        if(thermometer != null )
+        {
+            sensorManager.registerListener( (SensorEventListener) this, thermometer, SensorManager.SENSOR_DELAY_NORMAL );
+            Log.d(TAG,"On create: thermomether listener has been launched");
+        }
+        else
+        {
+            Log.v(TAG,"On create: thermomether listener is not available");
         }
 
         walls.add(findViewById(R.id.wall1 ) );
@@ -119,11 +133,18 @@ public class SecondLevel extends Activity implements SensorEventListener {
             {
 
                    Intent startOfGame = new Intent(this,ShakeActivity.class);
-                ShakeActivity.level="third";
+                startOfGame.putExtra("LEVELNUMBER","third");
+
+                //ShakeActivity.level="third";
                 startActivity(startOfGame);
             }
 
 
+        }
+        if(sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE)
+        {
+            if(sensorEvent.values[0] < 20) background.setBackgroundColor(0xA833C5CA);
+            else background.setBackgroundColor(0xFFF4B648);
         }
 
     }
@@ -146,7 +167,7 @@ public class SecondLevel extends Activity implements SensorEventListener {
         //changeX - zmiana w poziomie (lewo prawo)
         float changeX = ( x - initialMagnetometerValues.get(0) ) /5;
         //changeY - zmiana w pionie (góra dół)
-        float changeY = ( initialMagnetometerValues.get(0) - y ) /5;
+        float changeY = ( initialMagnetometerValues.get(2) - y ) /5;
         if(changeX < 0)
         {
             if( ! ( doesThePointCoverAnyWall(ball.getX() - 5,ball.getY(),walls) ||
