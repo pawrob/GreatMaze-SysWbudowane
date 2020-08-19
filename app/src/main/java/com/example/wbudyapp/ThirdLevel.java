@@ -58,6 +58,9 @@ public class ThirdLevel extends Activity implements SensorEventListener {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
         initialMagnetometerValues = new ArrayList<Float>();
+        initialMagnetometerValues.add(0, new Float(0));
+        initialMagnetometerValues.add(1,new Float(48.4));
+        initialMagnetometerValues.add(2,new Float(5.9));
 
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -117,10 +120,10 @@ public class ThirdLevel extends Activity implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor sensor = sensorEvent.sensor;
         //Jeśli tablica jest pusta, to wpisujemy wartości inicjalizacyjne, w odniesieniu do których będzie poruszać się gwiazdka
-        if(initialMagnetometerValues.size() == 0)
+        /*if(initialMagnetometerValues.size() == 0)
         {
             for(int i=0; i < 3; i++) initialMagnetometerValues.add(sensorEvent.values[i]);
-        }
+        }*/
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
         if( sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD ) {
 

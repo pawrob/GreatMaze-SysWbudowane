@@ -197,6 +197,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
                 startOfGame.putExtra("LEVELNUMBER", nextLevel);
                 startActivity(startOfGame);
+                finish();
             }
 
 
@@ -277,4 +278,5 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }
         return covers;
     }
+
 }

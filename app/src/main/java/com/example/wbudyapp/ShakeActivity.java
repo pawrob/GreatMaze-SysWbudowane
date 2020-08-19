@@ -47,6 +47,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
 
         Intent intent = getIntent();
         nextLevel = intent.getStringExtra("LEVELNUMBER");
+        System.out.println(nextLevel);
 
         if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!=null){
             accrelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -66,7 +67,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
             startActivity(startOfGame);
         }
         if(level.equals("third")){
-            Intent startOfGame = new Intent(this,ThirdLevel.class);
+            Intent startOfGame = new Intent(this,LevelActivity.class);
             startOfGame.putExtra("LEVELNUMBER",3);
             startActivity(startOfGame);
         }
