@@ -7,9 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,13 +15,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
@@ -33,17 +30,19 @@ public class LevelActivity extends Activity implements SensorEventListener {
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ", nextLevel;
     private SensorManager sensorManager;
-    private Sensor magnetometer, thermometer;
+    private Sensor accelerometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
-    private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
+    //private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     private ConstraintLayout background;
 
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
-    private ArrayList<Float> initialMagnetometerValues;
+    private ArrayList<Float> initialAccelerometerValues;
     private ArrayList<View> walls;
     private int screenWidth, screenHeight;
     private Vibrator vibrator;
+    public int MULTIPLIER = 2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);//metoda z Activity
@@ -117,28 +116,28 @@ public class LevelActivity extends Activity implements SensorEventListener {
         studnia = findViewById(R.id.studnia);
         background = findViewById(R.id.background);
 
-        xMagValue = findViewById(R.id.xMagValue);
+        /*xMagValue = findViewById(R.id.xMagValue);
         yMagValue = findViewById(R.id.yMagValue);
         zMagValue = findViewById(R.id.zMagValue);
         ballX = findViewById(R.id.ballX);
-        ballY = findViewById(R.id.ballY);
+        ballY = findViewById(R.id.ballY);*/
 
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inicjalizacja arrayListy
-        initialMagnetometerValues = new ArrayList<Float>();
-        initialMagnetometerValues.add(0, new Float(0));
-        initialMagnetometerValues.add(1,new Float(48.4));
-        initialMagnetometerValues.add(2,new Float(5.9));
+        initialAccelerometerValues = new ArrayList<Float>();
+        initialAccelerometerValues.add(0, new Float(0));
+        initialAccelerometerValues.add(1,new Float(0));
+        initialAccelerometerValues.add(2,new Float(9.81));
 
 
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
-        magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        if(magnetometer != null )
+        if(accelerometer != null )
         {
-            sensorManager.registerListener( (SensorEventListener) this, magnetometer, SensorManager.SENSOR_DELAY_UI );
+            sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_UI );
             Log.d(TAG,"On create: listener has been launched");
         }
         else
@@ -172,16 +171,16 @@ public class LevelActivity extends Activity implements SensorEventListener {
             for(int i=0; i < 3; i++) initialMagnetometerValues.add(sensorEvent.values[i]);
         }*/
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
-        if( sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD ) {
-            xMagValue.setText("X: " + sensorEvent.values[0]);
+        if( sensor.getType() == Sensor.TYPE_ACCELEROMETER ) {
+            /*xMagValue.setText("X: " + sensorEvent.values[0]);
             yMagValue.setText("Y: " + sensorEvent.values[1]);
             zMagValue.setText("Z: " + sensorEvent.values[2]);
             ballX.setText("Ball X: " + ball.getX());
-            ballY.setText("Ball Y: " + ball.getY());
+            ballY.setText("Ball Y: " + ball.getY());*/
 
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
 
-            this.move(ball,walls,sensorEvent.values[0],sensorEvent.values[2]);
+            this.move(ball,walls,sensorEvent.values[0],sensorEvent.values[1]);
             /*float changeX = ( sensorEvent.values[0] - initialMagnetometerValues.get(0) ) /5;
             if(changeX < 0 && this.checkIfLeft(ball,walls) ) ball.setX( ball.getX() + changeX );
             if(changeX > 0 && this.checkIfRight(ball,walls) ) ball.setX( ball.getX() + changeX );
@@ -197,7 +196,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
                 startOfGame.putExtra("LEVELNUMBER", nextLevel);
                 startActivity(startOfGame);
-                finish();
+                LevelActivity.this.finish();
             }
 
 
@@ -223,40 +222,40 @@ public class LevelActivity extends Activity implements SensorEventListener {
                 pow(studnia.getWidth()/2,2) ) return true;
         return false;
     }
-    public void move(ImageView ball, ArrayList<View> walls, float x, float z)
+    public void move(ImageView ball, ArrayList<View> walls, float x, float y)
     {
         //changeX - zmiana w poziomie (lewo prawo)
-        float changeX = ( initialMagnetometerValues.get(0) - x);
+        float changeX = ( initialAccelerometerValues.get(0) - x) * MULTIPLIER;
         //changeY - zmiana w pionie (góra dół)
-        float changeY = ( initialMagnetometerValues.get(2) - z ) /3;
+        float changeY = ( initialAccelerometerValues.get(1) + y ) * MULTIPLIER;
         if(changeX < 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX() - 2,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() - 2,ball.getY()+ball.getHeight(),walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + changeX,ball.getY(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + changeX,ball.getY()+ball.getHeight(),walls) ) )
             {
                 ball.setX( ball.getX() + changeX );
             }
         }
         if(changeX > 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + 2,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + 2,ball.getY()+ball.getHeight(),walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + changeX,ball.getY(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + changeX,ball.getY()+ball.getHeight(),walls) ) )
             {
                 ball.setX( ball.getX() + changeX );
             }
         }
         if(changeY < 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() - 2,walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() - 2,walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + changeY,walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + changeY,walls) ) )
             {
                 ball.setY( ball.getY() + changeY );
             }
         }
         if(changeY > 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + ball.getHeight() + 2 ,walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + ball.getHeight() + 2,walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + ball.getHeight() + changeY ,walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + ball.getHeight() + changeY,walls) ) )
             {
                 ball.setY( ball.getY() + changeY );
             }

@@ -13,11 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.view.View;
 import android.widget.TextView;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 //                        Toast.makeText(getApplicationContext(),"Shake!" , Toast.LENGTH_SHORT).show();
 public class ShakeActivity extends AppCompatActivity implements SensorEventListener {
@@ -25,8 +21,8 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     public String nextLevel;
     private TextView xValue, yValue, zValue,levelInfo;
     private SensorManager sensorManager;
-    private Sensor accrelerometerSensor;
-    private boolean isAccelerometer,notFirst=false;
+    private Sensor magnetometerSensor;
+    private boolean isMagnetometer,notFirst=false;
     private float currentX, currentY, currentZ, lastX,lastY,lastZ,xDiv,yDiv,zDiv;
     float shakeStep = 5f;
     private Vibrator vibrator;
@@ -49,13 +45,13 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
         nextLevel = intent.getStringExtra("LEVELNUMBER");
         System.out.println(nextLevel);
 
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!=null){
-            accrelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            isAccelerometer=true;
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)!=null){
+            magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            isMagnetometer =true;
         }
         else{
             xValue.setText("Accelerometer is not avaliable");
-            isAccelerometer=false;
+            isMagnetometer =false;
         }
     }
     public void levelPick(String level){
@@ -107,15 +103,15 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onResume() {
         super.onResume();
-        if(isAccelerometer){
-            sensorManager.registerListener(this,accrelerometerSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        if(isMagnetometer){
+            sensorManager.registerListener(this, magnetometerSensor,SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(isAccelerometer){
+        if(isMagnetometer){
             sensorManager.unregisterListener(this);
         }
     }

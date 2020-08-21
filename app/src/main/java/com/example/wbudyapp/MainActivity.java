@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent startOfGame = new Intent(this,LevelActivity.class);
         startOfGame.putExtra("LEVELNUMBER",1);
-                startActivity(startOfGame);
+        startActivity(startOfGame);
     }
 
     public void checkGps(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
