@@ -33,9 +33,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     private Sensor accelerometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
-    //private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     private ConstraintLayout background;
-
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     private ArrayList<Float> initialAccelerometerValues;
     private ArrayList<View> walls;
@@ -107,21 +105,14 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        DisplayMetrics metrics = new DisplayMetrics();
+        /*DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         screenWidth = metrics.widthPixels;
-        screenHeight = metrics.heightPixels;
+        screenHeight = metrics.heightPixels;*/
 
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
         background = findViewById(R.id.background);
-
-        /*xMagValue = findViewById(R.id.xMagValue);
-        yMagValue = findViewById(R.id.yMagValue);
-        zMagValue = findViewById(R.id.zMagValue);
-        ballX = findViewById(R.id.ballX);
-        ballY = findViewById(R.id.ballY);*/
-
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -137,7 +128,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         if(accelerometer != null )
         {
-            sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_UI );
+            sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL );
             Log.d(TAG,"On create: listener has been launched");
         }
         else
@@ -172,31 +163,23 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }*/
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
         if( sensor.getType() == Sensor.TYPE_ACCELEROMETER ) {
-            /*xMagValue.setText("X: " + sensorEvent.values[0]);
-            yMagValue.setText("Y: " + sensorEvent.values[1]);
-            zMagValue.setText("Z: " + sensorEvent.values[2]);
-            ballX.setText("Ball X: " + ball.getX());
-            ballY.setText("Ball Y: " + ball.getY());*/
+
 
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
 
             this.move(ball,walls,sensorEvent.values[0],sensorEvent.values[1]);
-            /*float changeX = ( sensorEvent.values[0] - initialMagnetometerValues.get(0) ) /5;
-            if(changeX < 0 && this.checkIfLeft(ball,walls) ) ball.setX( ball.getX() + changeX );
-            if(changeX > 0 && this.checkIfRight(ball,walls) ) ball.setX( ball.getX() + changeX );
 
-            ball.setY( ball.getY() + ( sensorEvent.values[1] - initialMagnetometerValues.get(1) )/5 );*/
-            if(ball.getX() > screenWidth) ball.setX(0 - ball.getWidth());
+            /*if(ball.getX() > screenWidth) ball.setX(0 - ball.getWidth());
             if(ball.getX() < ( 0 - ball.getWidth() ) ) ball.setX(screenWidth);
             if(ball.getY() > screenHeight ) ball.setY(0 + ball.getHeight());
-            if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);
+            if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);*/
             boolean finished = this.checkIfStudnia(ball,studnia);
             if(finished)
             {
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
                 startOfGame.putExtra("LEVELNUMBER", nextLevel);
                 startActivity(startOfGame);
-                LevelActivity.this.finish();
+                finish();
             }
 
 

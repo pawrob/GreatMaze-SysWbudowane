@@ -36,7 +36,6 @@ public class FirstLevel extends Activity implements SensorEventListener {
     private Sensor magnetometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     private ImageView ball,studnia;
-    private TextView xMagValue, yMagValue, zMagValue, ballX, ballY;
     private ConstraintLayout background;
 
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
@@ -59,12 +58,6 @@ public class FirstLevel extends Activity implements SensorEventListener {
         studnia = findViewById(R.id.studnia);
         walls = new ArrayList<View>();
         background = findViewById(R.id.background);
-
-        xMagValue = findViewById(R.id.xMagValue);
-        yMagValue = findViewById(R.id.yMagValue);
-        zMagValue = findViewById(R.id.zMagValue);
-        ballX = findViewById(R.id.ballX);
-        ballY = findViewById(R.id.ballY);
 
 
         //Inicjalizacja sensor Managera
@@ -121,11 +114,6 @@ public class FirstLevel extends Activity implements SensorEventListener {
         }
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
         if( sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD ) {
-            xMagValue.setText("X: " + sensorEvent.values[0]);
-            yMagValue.setText("Y: " + sensorEvent.values[1]);
-            zMagValue.setText("Z: " + sensorEvent.values[2]);
-            ballX.setText("Ball X: " + ball.getX());
-            ballY.setText("Ball Y: " + ball.getY());
 
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
 
