@@ -43,7 +43,6 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
 
         Intent intent = getIntent();
         nextLevel = intent.getStringExtra("LEVELNUMBER");
-        System.out.println(nextLevel);
 
         if(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)!=null){
             magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -58,14 +57,14 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
 
 
         if(level.equals("second")){
-            Intent startOfGame = new Intent(this,LevelActivity.class);
-            startOfGame.putExtra("LEVELNUMBER",2);
+            Intent startOfGame = new Intent(this,SecondLevel.class);
+            //startOfGame.putExtra("LEVELNUMBER",2);
             startActivity(startOfGame);
             finish();
         }
         if(level.equals("third")){
-            Intent startOfGame = new Intent(this,LevelActivity.class);
-            startOfGame.putExtra("LEVELNUMBER",3);
+            Intent startOfGame = new Intent(this,ThirdLevel.class);
+            //startOfGame.putExtra("LEVELNUMBER",3);
             startActivity(startOfGame);
             finish();
         }

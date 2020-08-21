@@ -128,7 +128,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         if(accelerometer != null )
         {
-            sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL );
+            sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_GAME );
             Log.d(TAG,"On create: listener has been launched");
         }
         else

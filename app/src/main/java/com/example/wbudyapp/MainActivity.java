@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button start;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     public void startGame(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
-        Intent startOfGame = new Intent(this,LevelActivity.class);
-        startOfGame.putExtra("LEVELNUMBER",1);
+        Intent startOfGame = new Intent(this,FirstLevel.class);
+        //startOfGame.putExtra("LEVELNUMBER",1);
         startActivity(startOfGame);
     }
 
