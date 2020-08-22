@@ -18,7 +18,7 @@ import android.widget.TextView;
 //                        Toast.makeText(getApplicationContext(),"Shake!" , Toast.LENGTH_SHORT).show();
 public class ShakeActivity extends AppCompatActivity implements SensorEventListener {
 
-    public String nextLevel;
+    public static String nextLevel;
     private TextView xValue, yValue, zValue,levelInfo;
     private SensorManager sensorManager;
     private Sensor magnetometerSensor;
@@ -41,9 +41,6 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        Intent intent = getIntent();
-        nextLevel = intent.getStringExtra("LEVELNUMBER");
-
         if(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)!=null){
             magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
             isMagnetometer =true;
@@ -58,15 +55,13 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
 
         if(level.equals("second")){
             Intent startOfGame = new Intent(this,SecondLevel.class);
-            //startOfGame.putExtra("LEVELNUMBER",2);
             startActivity(startOfGame);
-            finish();
+            //finish();
         }
         if(level.equals("third")){
             Intent startOfGame = new Intent(this,ThirdLevel.class);
-            //startOfGame.putExtra("LEVELNUMBER",3);
             startActivity(startOfGame);
-            finish();
+            //finish();
         }
 
     }

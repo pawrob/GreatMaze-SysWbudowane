@@ -120,10 +120,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
             boolean finished = checkIfStudnia(ball,studnia);
             if(finished)
             {
-                Intent startOfGame = new Intent(this,ShakeActivity.class);
-                startOfGame.putExtra("LEVELNUMBER", nextLevel);
-                startActivity(startOfGame);
-                finish();
+                startShakeActivity();
             }
 
 
@@ -208,5 +205,12 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }
         return covers;
     }
+    public void startShakeActivity()
+    {
+        Intent startOfGame = new Intent(this,ShakeActivity.class);
+        startActivity(startOfGame);
+        //finish();
+    }
+
 
 }
