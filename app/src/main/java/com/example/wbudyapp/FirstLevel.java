@@ -16,8 +16,6 @@ public class FirstLevel extends LevelActivity {
         super.onCreate(savedInstanceState);//metoda z Activity
 
 
-
-
         walls.add(findViewById(R.id.wall1 ) );
         walls.add(findViewById(R.id.left ) );
         walls.add(findViewById(R.id.right ) );
