@@ -29,8 +29,8 @@ public class ThirdLevel extends LevelActivity implements SensorEventListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);//metoda z Activity
         setContentView(R.layout.third_level);
+        super.onCreate(savedInstanceState);//metoda z Activity
         walls.add(findViewById(R.id.wall ) );
         walls.add(findViewById(R.id.wall1 ) );
 //        walls.add(findViewById(R.id.wall2 ) );

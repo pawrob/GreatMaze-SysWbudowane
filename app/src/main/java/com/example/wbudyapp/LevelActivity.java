@@ -117,7 +117,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
             if(ball.getX() < ( 0 - ball.getWidth() ) ) ball.setX(screenWidth);
             if(ball.getY() > screenHeight ) ball.setY(0 + ball.getHeight());
             if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);*/
-            boolean finished = false;checkIfStudnia(ball,studnia);
+            boolean finished = checkIfStudnia(ball,studnia);
             if(finished)
             {
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
@@ -143,11 +143,11 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
     public boolean checkIfStudnia(ImageView ball, ImageView studnia)
     {
-        /*if ( pow( ( ball.getX() + ball.getWidth()/2 - (studnia.getX() + studnia.getWidth()/2) ),2)
-                + pow( ( ball.getY() + ball.getHeight()/2 - (studnia.getY() + studnia.getHeight()/2) ),2) <
-                pow(studnia.getWidth()/2,2) ) return true;
-         */
-        return false;
+        if ( pow( ( ball.getX() + ball.getWidth()/2 - (studnia.getX() + studnia.getWidth()/2) ),2)
+                + pow( ( ball.getY() + ball.getHeight()/2 - (studnia.getY() + studnia.getHeight()/2) ),2) >
+                pow(studnia.getWidth()/2,2) ) return false;
+
+        else return true;
     }
     public void move(ImageView ball, ArrayList<View> walls, float x, float y)
     {
@@ -157,32 +157,36 @@ public class LevelActivity extends Activity implements SensorEventListener {
         float changeY = ( initialAccelerometerValues.get(1) + y ) * MULTIPLIER;
         if(changeX < 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX() + changeX,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + changeX,ball.getY()+ball.getHeight(),walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth()/2 + changeX,ball.getY(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth()/2 + changeX,ball.getY() + ball.getHeight(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + changeX, ball.getY() + ball.getHeight()/2,walls) ) )
             {
                 ball.setX( ball.getX() + changeX );
             }
         }
         if(changeX > 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + changeX,ball.getY(),walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth() + changeX,ball.getY()+ball.getHeight(),walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth()/2 + changeX,ball.getY(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth()/2 + changeX,ball.getY() + ball.getHeight(),walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + changeX + ball.getWidth(), ball.getY() + ball.getHeight()/2, walls)) )
             {
                 ball.setX( ball.getX() + changeX );
             }
         }
         if(changeY < 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + changeY,walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + changeY,walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth()/2,ball.getY() + changeY,walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + changeY,walls) ||
+                    doesThePointCoverAnyWall(ball.getX(), ball.getY() + ball.getHeight()/2 + changeY,walls)) )
             {
                 ball.setY( ball.getY() + changeY );
             }
         }
         if(changeY > 0)
         {
-            if( ! ( doesThePointCoverAnyWall(ball.getX(),ball.getY() + ball.getHeight() + changeY ,walls) ||
-                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + ball.getHeight() + changeY,walls) ) )
+            if( ! ( doesThePointCoverAnyWall(ball.getX() + ball.getWidth()/2,ball.getY() + ball.getHeight() + changeY ,walls) ||
+                    doesThePointCoverAnyWall(ball.getX() + ball.getWidth(),ball.getY() + changeY,walls) ||
+                    doesThePointCoverAnyWall(ball.getX(), ball.getY() + ball.getHeight()/2 + changeY,walls)) )
             {
                 ball.setY( ball.getY() + changeY );
             }
