@@ -4,6 +4,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 
 public class FirstLevel extends LevelActivity {
@@ -12,6 +14,8 @@ public class FirstLevel extends LevelActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.first_level);
         super.onCreate(savedInstanceState);//metoda z Activity
+
+
 
 
         walls.add(findViewById(R.id.wall1 ) );
