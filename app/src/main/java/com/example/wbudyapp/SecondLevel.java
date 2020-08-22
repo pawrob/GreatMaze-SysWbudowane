@@ -40,7 +40,10 @@ public class SecondLevel extends LevelActivity implements SensorEventListener {
         walls.add(findViewById(R.id.right));
         walls.add(findViewById(R.id.top));
         walls.add(findViewById(R.id.bottom));
-        nextLevel = "third";
-
+    }
+    public void startShakeActivity()
+    {
+        super.startShakeActivity();
+        ShakeActivity.nextLevel = "third";
     }
 }

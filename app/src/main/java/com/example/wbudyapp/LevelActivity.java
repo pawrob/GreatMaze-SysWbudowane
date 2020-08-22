@@ -28,7 +28,7 @@ import static java.lang.Math.pow;
 public class LevelActivity extends Activity implements SensorEventListener {
 
     //Deklaracje tego, czego będziemy używać
-    public String TAG = "My app ", nextLevel;
+    public String TAG = "My app ";
     public SensorManager sensorManager;
     public Sensor accelerometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
@@ -70,6 +70,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
         if(accelerometer != null )
         {
             sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_GAME );
@@ -209,6 +210,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     {
         Intent startOfGame = new Intent(this,ShakeActivity.class);
         startActivity(startOfGame);
+        walls.clear();
         //finish();
     }
 
