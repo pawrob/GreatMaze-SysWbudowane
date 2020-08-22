@@ -57,11 +57,13 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
             Intent startOfGame = new Intent(this,SecondLevel.class);
             startActivity(startOfGame);
             finish();
+
         }
         if(level.equals("third")){
             Intent startOfGame = new Intent(this,ThirdLevel.class);
             startActivity(startOfGame);
             finish();
+
         }
 
     }

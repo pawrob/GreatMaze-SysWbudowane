@@ -40,6 +40,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     public int screenWidth, screenHeight;
     public Vibrator vibrator;
     public int MULTIPLIER = 2;
+//    public static String nextLevel="first";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -208,10 +209,11 @@ public class LevelActivity extends Activity implements SensorEventListener {
     }
     public void startShakeActivity()
     {
+
         Intent startOfGame = new Intent(this,ShakeActivity.class);
         startActivity(startOfGame);
         walls.clear();
-        //finish();
+
     }
 
 

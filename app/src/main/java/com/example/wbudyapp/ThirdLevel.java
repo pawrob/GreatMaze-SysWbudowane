@@ -31,6 +31,7 @@ public class ThirdLevel extends LevelActivity implements SensorEventListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.third_level);
         super.onCreate(savedInstanceState);//metoda z Activity
+
         walls.add(findViewById(R.id.wall ) );
         walls.add(findViewById(R.id.wall1 ) );
 //        walls.add(findViewById(R.id.wall2 ) );
@@ -56,11 +57,13 @@ public class ThirdLevel extends LevelActivity implements SensorEventListener {
         walls.add(findViewById(R.id.top ) );
         walls.add(findViewById(R.id.bottom ) );
 
+
     }
+
     public void startShakeActivity()
     {
         super.startShakeActivity();
-        ShakeActivity.nextLevel = "second";
+        ShakeActivity.nextLevel = "fourth";
     }
 
 }
