@@ -29,16 +29,16 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ", nextLevel;
-    private SensorManager sensorManager;
-    private Sensor accelerometer, thermometer;
+    public SensorManager sensorManager;
+    public Sensor accelerometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
-    private ImageView ball,studnia;
-    private ConstraintLayout background;
+    public ImageView ball,studnia;
+    public ConstraintLayout background;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
-    private ArrayList<Float> initialAccelerometerValues;
-    private ArrayList<View> walls;
-    private int screenWidth, screenHeight;
-    private Vibrator vibrator;
+    public ArrayList<Float> initialAccelerometerValues;
+    public ArrayList<View> walls;
+    public int screenWidth, screenHeight;
+    public Vibrator vibrator;
     public int MULTIPLIER = 2;
 
     @Override
@@ -46,62 +46,6 @@ public class LevelActivity extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);//metoda z Activity
 
         walls = new ArrayList<View>();
-        Intent intent = getIntent();
-        int levelNumber = intent.getIntExtra("LEVELNUMBER", 1);
-        if (levelNumber == 1)
-        {
-            setContentView(R.layout.first_level);
-            walls.add(findViewById(R.id.wall1 ) );
-            walls.add(findViewById(R.id.left ) );
-            walls.add(findViewById(R.id.right ) );
-            walls.add(findViewById(R.id.top ) );
-            walls.add(findViewById(R.id.bottom ) );
-            nextLevel = "second";
-        }
-        if (levelNumber == 2)
-        {
-            setContentView(R.layout.second_level);
-            walls.add(findViewById(R.id.wall1 ) );
-            walls.add(findViewById(R.id.wall2 ) );
-            walls.add(findViewById(R.id.wall3 ) );
-            walls.add(findViewById(R.id.wall4 ) );
-            walls.add(findViewById(R.id.wall5 ) );
-            walls.add(findViewById(R.id.left ) );
-            walls.add(findViewById(R.id.right ) );
-            walls.add(findViewById(R.id.top ) );
-            walls.add(findViewById(R.id.bottom ) );
-            nextLevel = "third";
-        }
-        if (levelNumber == 3)
-        {
-            setContentView(R.layout.third_level);
-            walls.add(findViewById(R.id.wall ) );
-            walls.add(findViewById(R.id.wall1 ) );
-//        walls.add(findViewById(R.id.wall2 ) );
-//        walls.add(findViewById(R.id.wall3 ) );
-//        walls.add(findViewById(R.id.wall4 ) );
-//        walls.add(findViewById(R.id.wall5 ) );
-            walls.add(findViewById(R.id.wall6 ) );
-            walls.add(findViewById(R.id.wall7 ) );
-            walls.add(findViewById(R.id.wall8 ) );
-            walls.add(findViewById(R.id.wall9 ) );
-            walls.add(findViewById(R.id.wall10 ) );
-            walls.add(findViewById(R.id.wall12 ) );
-            walls.add(findViewById(R.id.wall13 ) );
-            walls.add(findViewById(R.id.wall14 ) );
-            walls.add(findViewById(R.id.wall16 ) );
-            walls.add(findViewById(R.id.wall17 ) );
-            walls.add(findViewById(R.id.wall18 ) );
-            walls.add(findViewById(R.id.wall19 ) );
-            walls.add(findViewById(R.id.wall20 ) );
-            walls.add(findViewById(R.id.wall21 ) );
-            walls.add(findViewById(R.id.left ) );
-            walls.add(findViewById(R.id.right ) );
-            walls.add(findViewById(R.id.top ) );
-            walls.add(findViewById(R.id.bottom ) );
-            nextLevel = "fourth";
-        }
-
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -173,7 +117,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
             if(ball.getX() < ( 0 - ball.getWidth() ) ) ball.setX(screenWidth);
             if(ball.getY() > screenHeight ) ball.setY(0 + ball.getHeight());
             if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);*/
-            boolean finished = this.checkIfStudnia(ball,studnia);
+            boolean finished = false;checkIfStudnia(ball,studnia);
             if(finished)
             {
                 Intent startOfGame = new Intent(this,ShakeActivity.class);
@@ -199,10 +143,10 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
     public boolean checkIfStudnia(ImageView ball, ImageView studnia)
     {
-        //Na sztywno zakodowany promien studni jako 25 oraz srednice kuli jako 30
-        if ( pow( ( ball.getX() + ball.getWidth()/2 - (studnia.getX() + studnia.getWidth()/2) ),2)
+        /*if ( pow( ( ball.getX() + ball.getWidth()/2 - (studnia.getX() + studnia.getWidth()/2) ),2)
                 + pow( ( ball.getY() + ball.getHeight()/2 - (studnia.getY() + studnia.getHeight()/2) ),2) <
                 pow(studnia.getWidth()/2,2) ) return true;
+         */
         return false;
     }
     public void move(ImageView ball, ArrayList<View> walls, float x, float y)
