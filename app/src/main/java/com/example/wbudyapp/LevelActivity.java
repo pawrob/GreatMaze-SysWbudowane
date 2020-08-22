@@ -40,6 +40,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     public int screenWidth, screenHeight;
     public Vibrator vibrator;
     public int MULTIPLIER = 2;
+    public TextView temperatureText;
 //    public static String nextLevel="first";
 
     @Override
@@ -58,6 +59,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
         background = findViewById(R.id.background);
+        temperatureText = findViewById(R.id.temp);
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -131,6 +133,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         {
             if(sensorEvent.values[0] < 20) background.setBackgroundColor(0xA833C5CA);
             else background.setBackgroundColor(0xFFF4B648);
+            temperatureText.setText((int) sensorEvent.values[0]);
         }
 
     }
@@ -209,11 +212,9 @@ public class LevelActivity extends Activity implements SensorEventListener {
     }
     public void startShakeActivity()
     {
-
         Intent startOfGame = new Intent(this,ShakeActivity.class);
         startActivity(startOfGame);
         walls.clear();
-
     }
 
 

@@ -46,9 +46,4 @@ public class SecondLevel extends LevelActivity implements SensorEventListener {
         super.startShakeActivity();
         ShakeActivity.nextLevel = "third";
     }
-    public void startShakeActivity()
-    {
-        super.startShakeActivity();
-        ShakeActivity.nextLevel = "third";
-    }
 }

@@ -90,8 +90,8 @@
 
     <TextView
         android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="153dp"
+        android:layout_height="62dp"
         android:layout_marginBottom="488dp"
         android:text="temp"
         app:layout_constraintBottom_toBottomOf="parent"
