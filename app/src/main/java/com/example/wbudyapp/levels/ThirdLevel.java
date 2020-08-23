@@ -1,30 +1,17 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.levels;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.ArrayList;
+import com.example.wbudyapp.mainMenu.LevelActivity;
+import com.example.wbudyapp.R;
+import com.example.wbudyapp.mainMenu.ShakeActivity;
+
 import java.util.Date;
-import java.util.logging.Level;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.pow;
 
 public class ThirdLevel extends LevelActivity implements SensorEventListener {
 

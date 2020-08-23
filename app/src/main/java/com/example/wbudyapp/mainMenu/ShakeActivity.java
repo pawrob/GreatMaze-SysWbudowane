@@ -1,4 +1,4 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.mainMenu;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +16,17 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
 
-import java.util.logging.Level;
+import com.example.wbudyapp.R;
+import com.example.wbudyapp.levels.SecondLevel;
+import com.example.wbudyapp.levels.ThirdLevel;
+
+import java.util.Vector;
 
 //                        Toast.makeText(getApplicationContext(),"Shake!" , Toast.LENGTH_SHORT).show();
 public class ShakeActivity extends AppCompatActivity implements SensorEventListener {
 
     public static String nextLevel;
-    private TextView xValue, yValue, zValue,levelInfo;
+    private TextView xValue, yValue, zValue,levelInfo,scoreInfo;
     private SensorManager sensorManager;
     private Sensor magnetometerSensor;
     private boolean isMagnetometer,notFirst=false;
@@ -31,6 +35,8 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     private Vibrator vibrator;
     public static long time;
     public static TextView lvltime;
+    private Vector<Long> points;
+//    private long ;
 
 
 
@@ -44,10 +50,13 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
         xValue = findViewById(R.id.xAxis);
         yValue = findViewById(R.id.yAxis);
         zValue = findViewById(R.id.zAxis);
+        scoreInfo = findViewById(R.id.totalScore);
 
         lvltime = findViewById(R.id.lvltime);
-//        time=1000000/time;
+//        time= (long) pow((Math.E),1/time*3) ;
+        LevelActivity.totalScore=+time;
         lvltime.setText("Score: " + time);
+        scoreInfo.setText("Total score: " + LevelActivity.totalScore);
 //        time = 0;
 
 
@@ -67,15 +76,15 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
 
 
         if(level.equals("second")){
-            Intent startOfGame = new Intent(this,SecondLevel.class);
+            Intent startOfGame = new Intent(this, SecondLevel.class);
             startActivity(startOfGame);
-            finish();
+//            finish();
 
         }
         if(level.equals("third")){
-            Intent startOfGame = new Intent(this,ThirdLevel.class);
+            Intent startOfGame = new Intent(this, ThirdLevel.class);
             startActivity(startOfGame);
-            finish();
+//            finish();
 
         }
 

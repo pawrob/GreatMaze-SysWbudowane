@@ -94,14 +94,28 @@
 
     <TextView
         android:id="@+id/lvltime"
-        android:layout_width="118dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="56dp"
-        android:text="Level Time"
+        android:layout_width="128dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="24dp"
+        android:text="Level Score"
         android:textColor="#FFC107"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gifTextView" />
+
+    <TextView
+        android:id="@+id/totalScore"
+        android:layout_width="223dp"
+        android:layout_height="21dp"
+        android:text="Total Score"
+        android:textColor="#FFC107"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvltime"
+        app:layout_constraintVertical_bias="0.031" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

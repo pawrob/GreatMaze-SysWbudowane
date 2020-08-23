@@ -1,15 +1,15 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.mainMenu;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
+import com.example.wbudyapp.R;
+import com.example.wbudyapp.functions.GpsActivity;
+import com.example.wbudyapp.levels.FirstLevel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,30 +25,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
-        Intent startOfGame = new Intent(this,FirstLevel.class);
+        Intent startOfGame = new Intent(this, FirstLevel.class);
         //startOfGame.putExtra("LEVELNUMBER",1);
         startActivity(startOfGame);
     }
 
     public void checkGps(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
-        Intent gpsCheck = new Intent(this,GpsActivity.class);
+        Intent gpsCheck = new Intent(this, GpsActivity.class);
         startActivity(gpsCheck);
     }
-    public void checkShake(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
-    {
-        Intent shakeCheck = new Intent(this,ShakeActivity.class);
-        startActivity(shakeCheck);
-    }
+
 
     public void checkLevel(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
         Intent lvlCheck = new Intent(this,TestLevels.class);
         startActivity(lvlCheck);
     }
-    public void checkTime(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
-    {
-        Intent timeCheck = new Intent(this,TimeHandler.class);
-        startActivity(timeCheck);
-    }
+
 }

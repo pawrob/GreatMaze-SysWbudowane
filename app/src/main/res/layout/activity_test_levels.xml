@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestLevels"
+    tools:context=".mainMenu.TestLevels"
     android:background="@android:color/background_dark">
 
     <Button
         android:id="@+id/lv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="108dp"
         android:background="#E81E1C1C"
         android:onClick="lvl1"
         android:text="Level 1"
         android:textColor="#FFC107"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,25 +24,27 @@
         android:id="@+id/lv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="16dp"
         android:background="#E81E1C1C"
         android:onClick="lvl2"
         android:text="LEVEL 2"
         android:textColor="#FFC107"
-        app:layout_constraintStart_toEndOf="@+id/lv1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv1" />
 
     <Button
         android:id="@+id/lv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="16dp"
         android:background="#E81E1C1C"
         android:onClick="lvl3"
         android:text="LEVEL 3 "
         android:textColor="#FFC107"
-        app:layout_constraintStart_toEndOf="@+id/lv2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

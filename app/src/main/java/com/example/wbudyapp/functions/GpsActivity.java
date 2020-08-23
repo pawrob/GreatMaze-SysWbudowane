@@ -1,4 +1,4 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.functions;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -13,6 +13,8 @@ import android.widget.Button;
 
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.wbudyapp.R;
 
 
 public class GpsActivity extends AppCompatActivity {

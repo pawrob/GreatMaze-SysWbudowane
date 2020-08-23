@@ -1,12 +1,12 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.levels;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import com.example.wbudyapp.mainMenu.LevelActivity;
+import com.example.wbudyapp.R;
+import com.example.wbudyapp.mainMenu.ShakeActivity;
 
 import java.util.Date;
 

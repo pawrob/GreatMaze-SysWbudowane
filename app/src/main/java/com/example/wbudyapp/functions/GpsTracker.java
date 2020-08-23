@@ -1,4 +1,4 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.functions;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;

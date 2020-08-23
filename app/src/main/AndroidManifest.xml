@@ -13,21 +13,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimeHandler"></activity>
-        <activity android:name=".TestLevels" />
-        <activity android:name=".ShakeActivity" />
+        <activity android:name=".functions.TimeHandler"></activity>
+        <activity android:name=".mainMenu.TestLevels" />
+        <activity android:name=".mainMenu.ShakeActivity" />
         <activity android:name=".GpsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".mainMenu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstLevel" />
-        <activity android:name=".SecondLevel" />
-        <activity android:name=".ThirdLevel" />
-        <activity android:name=".LevelActivity" />
+        <activity android:name=".levels.FirstLevel" />
+        <activity android:name=".levels.SecondLevel" />
+        <activity android:name=".levels.ThirdLevel" />
+        <activity android:name=".mainMenu.LevelActivity" />
     </application>
 
 </manifest>

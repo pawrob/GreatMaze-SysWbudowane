@@ -1,4 +1,4 @@
-package com.example.wbudyapp;
+package com.example.wbudyapp.mainMenu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,7 +10,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,15 +19,18 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.wbudyapp.R;
+import com.example.wbudyapp.functions.TimeHandler;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 
 public class LevelActivity extends Activity implements SensorEventListener {
 
+    public static long totalScore;
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ";
     public SensorManager sensorManager;
@@ -43,6 +45,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     public Vibrator vibrator;
     public int MULTIPLIER = 2;
     public TextView temperatureText;
+
 
     public long startTime = new Date().getTime(), endTime;
 
@@ -132,7 +135,6 @@ public class LevelActivity extends Activity implements SensorEventListener {
             boolean finished = checkIfStudnia(ball,studnia);
             if(finished)
             {
-
                 startShakeActivity();
             }
 
@@ -236,7 +238,6 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
         endTime = TimeHandler.calcTime(startTime);
         ShakeActivity.time = endTime;
-//        startTime=0;
 
         Intent startOfGame = new Intent(this,ShakeActivity.class);
         startActivity(startOfGame);
