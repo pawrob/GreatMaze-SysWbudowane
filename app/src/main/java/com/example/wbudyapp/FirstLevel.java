@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import java.util.Date;
+
 public class FirstLevel extends LevelActivity {
 
     @Override
@@ -15,7 +17,7 @@ public class FirstLevel extends LevelActivity {
         setContentView(R.layout.first_level);
         super.onCreate(savedInstanceState);//metoda z Activity
 
-
+        startTime = new Date().getTime();
         walls.add(findViewById(R.id.wall1 ) );
         walls.add(findViewById(R.id.left ) );
         walls.add(findViewById(R.id.right ) );

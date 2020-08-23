@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 
 import static java.lang.Math.abs;
@@ -43,7 +44,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     public int MULTIPLIER = 2;
     public TextView temperatureText;
 
-    public long startTime = TimeHandler.startTimer(), endTime;
+    public long startTime = new Date().getTime(), endTime;
 
 
     @Override
@@ -235,7 +236,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
         endTime = TimeHandler.calcTime(startTime);
         ShakeActivity.time = endTime;
-        startTime=0;
+//        startTime=0;
 
         Intent startOfGame = new Intent(this,ShakeActivity.class);
         startActivity(startOfGame);

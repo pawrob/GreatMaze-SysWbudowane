@@ -46,7 +46,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
         zValue = findViewById(R.id.zAxis);
 
         lvltime = findViewById(R.id.lvltime);
-        time=time%2137^(TimeHandler.startTimer()%2137);
+//        time=1000000/time;
         lvltime.setText("Score: " + time);
 //        time = 0;
 

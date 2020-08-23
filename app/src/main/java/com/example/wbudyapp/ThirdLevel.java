@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 
 import static java.lang.Math.abs;
@@ -31,7 +32,7 @@ public class ThirdLevel extends LevelActivity implements SensorEventListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.third_level);
         super.onCreate(savedInstanceState);//metoda z Activity
-
+        startTime = new Date().getTime();
         walls.add(findViewById(R.id.wall ) );
         walls.add(findViewById(R.id.wall1 ) );
 //        walls.add(findViewById(R.id.wall2 ) );
