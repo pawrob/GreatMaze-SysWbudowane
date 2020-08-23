@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.wbudyapp.R;
+import com.example.wbudyapp.levels.BossLevel;
 import com.example.wbudyapp.levels.FirstLevel;
 import com.example.wbudyapp.levels.SecondLevel;
 import com.example.wbudyapp.levels.ThirdLevel;
@@ -35,6 +36,11 @@ public class TestLevels extends AppCompatActivity {
     public void lvl3(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
         Intent startOfGame = new Intent(this, ThirdLevel.class);
+        startActivity(startOfGame);
+    }
+    public void bossLevel(View view)
+    {
+        Intent startOfGame = new Intent(this, BossLevel.class);
         startActivity(startOfGame);
     }
 }
