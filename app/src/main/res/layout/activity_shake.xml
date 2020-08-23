@@ -92,4 +92,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
+    <TextView
+        android:id="@+id/lvltime"
+        android:layout_width="118dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="56dp"
+        android:text="Level Time"
+        android:textColor="#FFC107"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gifTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

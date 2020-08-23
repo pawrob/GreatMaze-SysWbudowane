@@ -46,4 +46,9 @@ public class MainActivity extends AppCompatActivity {
         Intent lvlCheck = new Intent(this,TestLevels.class);
         startActivity(lvlCheck);
     }
+    public void checkTime(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    {
+        Intent timeCheck = new Intent(this,TimeHandler.class);
+        startActivity(timeCheck);
+    }
 }

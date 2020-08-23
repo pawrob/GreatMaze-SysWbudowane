@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestLevels"></activity>
+        <activity android:name=".TimeHandler"></activity>
+        <activity android:name=".TestLevels" />
         <activity android:name=".ShakeActivity" />
         <activity android:name=".GpsActivity" />
         <activity android:name=".MainActivity">

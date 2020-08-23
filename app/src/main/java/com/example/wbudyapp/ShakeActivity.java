@@ -3,6 +3,7 @@ package com.example.wbudyapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -15,6 +16,8 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.widget.TextView;
 
+import java.util.logging.Level;
+
 //                        Toast.makeText(getApplicationContext(),"Shake!" , Toast.LENGTH_SHORT).show();
 public class ShakeActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -26,9 +29,12 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     private float currentX, currentY, currentZ, lastX,lastY,lastZ,xDiv,yDiv,zDiv;
     float shakeStep = 5f;
     private Vibrator vibrator;
+    public static long time;
+    public static TextView lvltime;
 
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,6 +44,13 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
         xValue = findViewById(R.id.xAxis);
         yValue = findViewById(R.id.yAxis);
         zValue = findViewById(R.id.zAxis);
+
+        lvltime = findViewById(R.id.lvltime);
+        time=time%2137^(TimeHandler.startTimer()%2137);
+        lvltime.setText("Score: " + time);
+//        time = 0;
+
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 

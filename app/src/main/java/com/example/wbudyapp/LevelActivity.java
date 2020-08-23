@@ -1,5 +1,6 @@
 package com.example.wbudyapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +42,9 @@ public class LevelActivity extends Activity implements SensorEventListener {
     public Vibrator vibrator;
     public int MULTIPLIER = 2;
     public TextView temperatureText;
-//    public static String nextLevel="first";
+
+    public long startTime = TimeHandler.startTimer(), endTime;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class LevelActivity extends Activity implements SensorEventListener {
         walls = new ArrayList<View>();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
 
         /*DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -60,6 +65,8 @@ public class LevelActivity extends Activity implements SensorEventListener {
         studnia = findViewById(R.id.studnia);
         background = findViewById(R.id.background);
         temperatureText = findViewById(R.id.temp);
+
+
 
         //Inicjalizacja sensor Managera
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -124,6 +131,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
             boolean finished = checkIfStudnia(ball,studnia);
             if(finished)
             {
+
                 startShakeActivity();
             }
 
@@ -204,6 +212,8 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }
 
     }
+
+
     public boolean doesThePointCoverAnyWall(float x, float y, ArrayList<View> walls)
     {
         boolean covers = false;
@@ -219,10 +229,17 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }
         return covers;
     }
+    @SuppressLint("SetTextI18n")
     public void startShakeActivity()
     {
+
+        endTime = TimeHandler.calcTime(startTime);
+        ShakeActivity.time = endTime;
+        startTime=0;
+
         Intent startOfGame = new Intent(this,ShakeActivity.class);
         startActivity(startOfGame);
+
         walls.clear();
     }
 
