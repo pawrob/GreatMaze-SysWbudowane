@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.example.wbudyapp.R;
 import com.example.wbudyapp.functions.GpsActivity;
+import com.example.wbudyapp.functions.ProximityActivity;
 import com.example.wbudyapp.levels.FirstLevel;
 
 
@@ -41,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent lvlCheck = new Intent(this,TestLevels.class);
         startActivity(lvlCheck);
+    }
+
+    public void checkProx(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    {
+        Intent proxCheck = new Intent(this, ProximityActivity.class);
+        startActivity(proxCheck);
     }
 
 }

@@ -39,7 +39,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="60dp"
         android:background="#00FFFFFF"
         android:onClick="checkGps"
         android:text="Check GPS status"
@@ -74,6 +74,19 @@
         android:background="#00FFFFFF"
         android:onClick="checkLevel"
         android:text="TEST LEVELS"
+        android:textColor="#FFC107"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="#00FFFFFF"
+        android:onClick="checkProx"
+        android:text="TEST PROX"
         android:textColor="#FFC107"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
