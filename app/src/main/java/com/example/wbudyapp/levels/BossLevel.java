@@ -1,7 +1,11 @@
 package com.example.wbudyapp.levels;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,13 +34,16 @@ public class BossLevel extends Activity implements SensorEventListener {
     private long score;
     private TextView scoreText;
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.boss_level);
 
+
+
         scoreText = findViewById(R.id.score);
-        score = 0;
+        score = 10000;
         progressBar = findViewById(R.id.progress);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -47,14 +54,20 @@ public class BossLevel extends Activity implements SensorEventListener {
         }
 
     }
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent sensorEvent)
     {
         Sensor sensor = sensorEvent.sensor;
         if( sensor.getType() == Sensor.TYPE_GYROSCOPE ) {
-        score = (long) (score + abs(sensorEvent.values[0]) + abs(sensorEvent.values[1]) + abs(sensorEvent.values[2]) );
+        score = (long) (score - abs(sensorEvent.values[0])- abs(sensorEvent.values[1]) - abs(sensorEvent.values[2]) );
         }
-        scoreText.setText(Long.toString(score) );
+        if(score>0){
+            scoreText.setText("HP: " + score);
+        }else {
+            scoreText.setText("HP: 0" );
+        }
+
         progressBar.setProgress((int) score);
 
     }

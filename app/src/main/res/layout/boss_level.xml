@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
 
     <TextView
         android:id="@+id/score"
         android:layout_width="198dp"
         android:layout_height="86dp"
         android:text="TextView"
+        android:textColor="#FFC107"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,11 +21,13 @@
 
     <ProgressBar
         android:id="@+id/progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="198dp"
-        android:layout_height="99dp"
-        android:layout_marginBottom="200dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="267dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="196dp"
         android:max="10000"
+        android:progressBackgroundTint="#ff7f7f"
+        android:progressTint="#990000"
         android:scrollbarSize="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

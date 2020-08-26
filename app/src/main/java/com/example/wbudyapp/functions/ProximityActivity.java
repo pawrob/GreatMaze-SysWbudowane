@@ -26,19 +26,21 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     private boolean isProximitySensor;
     private TextView proxValue,proxValueMax;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proximity);
-        //TODO: find id's
+
         proxValue = findViewById(R.id.proxValue);
         proxValueMax = findViewById(R.id.proxValueMax);
         // dostęp do sensora
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         // tworzenie obiektu Sensor dla proximity sensora
         if (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null) {
-            proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
             proxValueMax.setText(proximitySensor.getMaximumRange()+"cm");
             isProximitySensor = true;
         }   // jeśli sensor niedostępny koniec apki
@@ -53,19 +55,15 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         proxValue.setText(sensorEvent.values[0]+"cm");
-        androidx.constraintlayout.widget.ConstraintLayout rl = (androidx.constraintlayout.widget.ConstraintLayout)findViewById(R.id.activity_proximity);
-//        RelativeLayout rl = (RelativeLayout)findViewById(R.id.activity_proximity);
+        androidx.constraintlayout.widget.ConstraintLayout rl = findViewById(R.id.activity_proximity);
 
-//        if(sensorEvent.values[0] < proximitySensor.getMaximumRange()) {
-        if(sensorEvent.values[0] < 10) {
+        if(sensorEvent.values[0] < 8) {
             // Detected something nearby
             rl.setBackgroundColor(Color.RED);
-//            getWindow().getDecorView().setBackgroundColor(Color.RED);
         }
         else {
             // Nothing is nearby
             rl.setBackgroundColor(Color.GREEN);
-//            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
         }
     }
 
@@ -74,7 +72,7 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
         super.onResume();
         if(isProximitySensor){
             // utworzenie nasłuchiwacza z odczytem co 2s
-            sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_GAME);
         }
     }
 

@@ -31,23 +31,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(startOfGame);
     }
 
-    public void checkGps(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
-    {
-        Intent gpsCheck = new Intent(this, GpsActivity.class);
-        startActivity(gpsCheck);
-    }
 
 
-    public void checkLevel(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
-    {
-        Intent lvlCheck = new Intent(this,TestLevels.class);
-        startActivity(lvlCheck);
-    }
 
-    public void checkProx(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+
+    public void checkSensors(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
-        Intent proxCheck = new Intent(this, ProximityActivity.class);
-        startActivity(proxCheck);
+        Intent sensCheck = new Intent(this, SensorTest.class);
+        startActivity(sensCheck);
     }
 
 }
