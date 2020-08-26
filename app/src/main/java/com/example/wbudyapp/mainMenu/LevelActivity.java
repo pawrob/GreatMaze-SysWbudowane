@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.example.wbudyapp.R;
 import com.example.wbudyapp.functions.TimeHandler;
@@ -39,7 +41,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
     public Sensor accelerometer, thermometer;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     public ImageView ball,studnia;
-    public ConstraintLayout background;
+    public androidx.constraintlayout.widget.ConstraintLayout background;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     public ArrayList<Float> initialAccelerometerValues;
     public ArrayList<View> walls;
@@ -177,9 +179,18 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }
         if(sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE)
         {
-
-            if(sensorEvent.values[0] < 20) background.setBackgroundColor(0xA833C5CA);
-            else background.setBackgroundColor(0xFFF4B648);
+            androidx.constraintlayout.widget.ConstraintLayout rl = findViewById(R.id.background);
+//            rl.setBackgroundResource(R.drawable.desert);
+            if(sensorEvent.values[0] < 20){
+                //rl.setBackgroundResource(R.drawable.iceland);
+                rl.setBackgroundColor(Color.RED);
+////                background.setBackgroundColor(0xA833C5CA);
+            }
+            else {
+                //rl.setBackgroundResource(R.drawable.desert);
+                rl.setBackgroundColor(Color.GREEN);
+            }
+//                background.setBackgroundColor(0xFFF4B648);
 //            temperatureText.setText(Float.toString(sensorEvent.values[0]));
         }
 

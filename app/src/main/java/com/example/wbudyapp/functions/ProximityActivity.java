@@ -32,7 +32,6 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     private boolean isProximitySensor;
     private TextView proxValue,proxValueMax;
     Button btnLoc;
-//    WindowManager.LayoutParams params = getWindow().getAttributes();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -74,7 +73,7 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         proxValue.setText(getString(R.string.prox_value) + sensorEvent.values[0]+"cm");
-        androidx.constraintlayout.widget.ConstraintLayout rl = findViewById(R.id.activity_proximity);
+//        androidx.constraintlayout.widget.ConstraintLayout rl = findViewById(R.id.activity_proximity);
 
         if(sensorEvent.values[0] < proximitySensor.getMaximumRange() ) {
             // Detected something nearby

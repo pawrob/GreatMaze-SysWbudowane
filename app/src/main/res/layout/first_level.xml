@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yellow"
-    tools:context=".mainMenu.MainActivity">
+    tools:context=".mainMenu.MainActivity" >
 
     <ImageView
         android:id="@+id/studnia"
