@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -60,6 +61,18 @@ public class LevelActivity extends Activity implements SensorEventListener {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
+        int random = (int )(Math.random() * 100 + 1);
+        random=random%2;
+
+        if(random==0){
+            MediaPlayer mp= MediaPlayer.create(this,R.raw.lidcreak);
+            mp.start();
+        }
+        else{
+            MediaPlayer mp= MediaPlayer.create(this,R.raw.open_creaky_door);
+            mp.start();
+        }
+
 
         /*DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -69,7 +82,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
         background = findViewById(R.id.background);
-        temperatureText = findViewById(R.id.temp);
+//        temperatureText = findViewById(R.id.temp);
 
 
 
@@ -138,6 +151,8 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
             if(finished)
             {
+                MediaPlayer mp= MediaPlayer.create(this,R.raw.studnia);
+                mp.start();
                 startShakeActivity();
             }
 
@@ -148,7 +163,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
             if(sensorEvent.values[0] < 20) background.setBackgroundColor(0xA833C5CA);
             else background.setBackgroundColor(0xFFF4B648);
-            temperatureText.setText(Float.toString(sensorEvent.values[0]));
+//            temperatureText.setText(Float.toString(sensorEvent.values[0]));
         }
 
     }

@@ -8,6 +8,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <color name="yellow">#FFC107</color>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="prox_value">Prox Value</string>

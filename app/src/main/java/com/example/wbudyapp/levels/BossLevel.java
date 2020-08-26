@@ -44,10 +44,14 @@ public class BossLevel extends Activity implements SensorEventListener {
     private TextView scoreText;
     private ProgressBar progressBar;
     private boolean defeated = false;
-
+private int count,count2,count3,count4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        count=0;
+        count2=0;
+        count3=0;
+        count4=0;
         super.onCreate(savedInstanceState);
         int random = (int )(Math.random() * 4 + 1);
         if(random==1){
@@ -66,7 +70,7 @@ public class BossLevel extends Activity implements SensorEventListener {
 //            setContentView(R.layout.boss_level);
 //        }
 
-        score = 1000;
+        score = 10000;
         scoreText = findViewById(R.id.score);
         progressBar = findViewById(R.id.progress);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -101,6 +105,36 @@ public class BossLevel extends Activity implements SensorEventListener {
         }
         else{
             scoreText.setText("HP: " + score);
+        }
+        if(score<10000&score>8000)
+        {
+            if(count==0){
+                MediaPlayer mp= MediaPlayer.create(this,R.raw.leopard3);
+                mp.start();
+                count=1;
+            }
+
+        }
+        if(score<4999&score>2500){
+            if(count2==0){
+                MediaPlayer mp= MediaPlayer.create(this,R.raw.sound);
+                mp.start();
+                count2=1;
+            }
+        }
+        if(score<7999&score>5000){
+            if(count3==0){
+                MediaPlayer mp= MediaPlayer.create(this,R.raw.leopard7);
+                mp.start();
+                count3=1;
+            }
+        }
+        if(score<2499&score>100){
+            if(count4==0){
+                MediaPlayer mp= MediaPlayer.create(this,R.raw.leopard3);
+                mp.start();
+                count4=1;
+            }
         }
 
         progressBar.setProgress((int) score);

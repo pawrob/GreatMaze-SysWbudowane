@@ -5,7 +5,7 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/yellow"
     tools:context=".mainMenu.MainActivity">
 
     <ImageView
@@ -87,16 +87,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/left"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/temp"
-        android:layout_width="153dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="488dp"
-        android:text="temp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.288"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
