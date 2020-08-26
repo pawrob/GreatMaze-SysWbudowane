@@ -21,10 +21,6 @@ import com.example.wbudyapp.R;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-/**
- * Created by shiva on 8/4/17.
- */
-
 public class GpsTracker extends Activity implements LocationListener {
 
     Context context;
