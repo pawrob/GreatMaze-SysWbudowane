@@ -1,5 +1,6 @@
 package com.example.wbudyapp.levels;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.MediaRouteButton;
@@ -12,9 +13,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+import com.example.wbudyapp.functions.GpsActivity;
+import com.example.wbudyapp.functions.GpsTracker;
 import com.example.wbudyapp.functions.TimeHandler;
 import com.example.wbudyapp.mainMenu.ShakeActivity;
 import com.example.wbudyapp.mainMenu.TestLevels;
@@ -23,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import android.util.Log;
 import android.view.View;
@@ -45,27 +50,42 @@ public class BossLevel extends Activity implements SensorEventListener {
     private ProgressBar progressBar;
     private boolean defeated = false;
 private int count,count2,count3,count4;
-
+    public String TAG = "My app ";
+    @Override
+    public void onBackPressed() {
+        Log.v(TAG,"Back blocked");
+//        System.out.println("Hemllo World!");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityCompat.requestPermissions(BossLevel.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+        GpsTracker gt = new GpsTracker(getApplicationContext());
+        Location l = gt.getLocation();
+
         count=0;
         count2=0;
         count3=0;
         count4=0;
         super.onCreate(savedInstanceState);
         int random = (int )(Math.random() * 4 + 1);
-        if(random==1){
-            setContentView(R.layout.boss_level);
+        if(gt.getDistanceToTUL(l)<1){ // dystans do politechniki
+            setContentView(R.layout.boss_level5);
         }
-        else if(random==2){
-            setContentView(R.layout.boss_level2);
+        else{
+            if(random==1){
+                setContentView(R.layout.boss_level);
+            }
+            else if(random==2){
+                setContentView(R.layout.boss_level2);
+            }
+            else if(random==3){
+                setContentView(R.layout.boss_level3);
+            }
+            else if(random==4){
+                setContentView(R.layout.boss_level4);
+            }
         }
-        else if(random==3){
-            setContentView(R.layout.boss_level3);
-        }
-        else if(random==4){
-            setContentView(R.layout.boss_level4);
-        }
+
 //        else{
 //            setContentView(R.layout.boss_level);
 //        }

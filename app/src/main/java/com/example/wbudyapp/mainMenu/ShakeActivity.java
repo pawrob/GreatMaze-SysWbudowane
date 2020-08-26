@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.wbudyapp.R;
@@ -36,9 +37,15 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     public static long time;
     public static TextView lvltime;
     private Vector<Long> points;
-//    private long ;
 
 
+    public String TAG = "My app ";
+    
+    @Override
+    public void onBackPressed() {
+        Log.v(TAG,"Back blocked");
+//        System.out.println("Hemllo World!");
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
