@@ -50,7 +50,12 @@ public class BossLevel extends Activity implements SensorEventListener {
     private ProgressBar progressBar;
     private boolean defeated = false;
 private int count,count2,count3,count4;
-
+    public String TAG = "My app ";
+    @Override
+    public void onBackPressed() {
+        Log.v(TAG,"Back blocked");
+//        System.out.println("Hemllo World!");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ActivityCompat.requestPermissions(BossLevel.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 123);

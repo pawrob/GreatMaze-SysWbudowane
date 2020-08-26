@@ -121,6 +121,12 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.v(TAG,"Back blocked");
+//        System.out.println("Hemllo World!");
+    }
     //Ogółem nasza aplikacja tutaj opiera się na tym, że eventy wywołują się jak tylko otrzymamy sygnał z sensora.
     //W naszej aplikacji sygnały otrzymujemy z częstością podaną przy rejestracji menedżera (SENSOR_DELAY_UI)
     //Zasadniczo nie wiem czy dobrze, żeby nasza aplikacja wykonywała czynności na podstawie tego, czy jest sygnał z sensora
