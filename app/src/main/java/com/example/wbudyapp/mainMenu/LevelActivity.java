@@ -21,6 +21,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.wbudyapp.R;
 import com.example.wbudyapp.functions.TimeHandler;
+import com.example.wbudyapp.levels.BossLevel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,6 +134,8 @@ public class LevelActivity extends Activity implements SensorEventListener {
             if(ball.getY() > screenHeight ) ball.setY(0 + ball.getHeight());
             if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);*/
             boolean finished = checkIfStudnia(ball,studnia);
+
+
             if(finished)
             {
                 startShakeActivity();
@@ -142,6 +145,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }
         if(sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE)
         {
+
             if(sensorEvent.values[0] < 20) background.setBackgroundColor(0xA833C5CA);
             else background.setBackgroundColor(0xFFF4B648);
             temperatureText.setText(Float.toString(sensorEvent.values[0]));
@@ -239,11 +243,23 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
         endTime = TimeHandler.calcTime(startTime);
         ShakeActivity.time = endTime;
-
-        Intent startOfGame = new Intent(this,ShakeActivity.class);
-        startActivity(startOfGame);
-
         walls.clear();
+
+        int random = (int )(Math.random() * 100 + 1);
+        random=random%2;
+
+        if(random==0){
+            Intent startOfGame = new Intent(this,ShakeActivity.class);
+            startActivity(startOfGame);
+        }
+        else{
+            Intent startOfBoss = new Intent(this, BossLevel.class);
+            startActivity(startOfBoss);
+        }
+//        finish();
+
+
+
     }
 
 

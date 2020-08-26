@@ -74,22 +74,21 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     }
     public void levelPick(String level){
 
-
         if(level.equals("second")){
             Intent startOfGame = new Intent(this, SecondLevel.class);
             startActivity(startOfGame);
-//            finish();
-
         }
-        if(level.equals("third")){
+        else if(level.equals("third")){
             Intent startOfGame = new Intent(this, ThirdLevel.class);
             startActivity(startOfGame);
-//            finish();
-
         }
-
+        else{
+            Intent startOfGame = new Intent(this,MainActivity.class);
+            startActivity(startOfGame);
+        }
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -107,7 +106,7 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
                 zDiv = Math.abs(lastZ-currentZ);
 
                     if((xDiv>shakeStep & yDiv>shakeStep)||(xDiv>shakeStep & zDiv>shakeStep) || (yDiv>shakeStep & zDiv>shakeStep)){
-                        vibrator.vibrate(VibrationEffect.createOneShot(500,VibrationEffect.DEFAULT_AMPLITUDE)); //<----------------------- Tutaj wpisujemy do funkcji to co ma sie dziac po shake
+                        vibrator.vibrate(VibrationEffect.createOneShot(500,VibrationEffect.DEFAULT_AMPLITUDE));
 
                         levelPick(nextLevel);
 

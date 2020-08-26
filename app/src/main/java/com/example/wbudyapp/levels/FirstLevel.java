@@ -28,5 +28,6 @@ public class FirstLevel extends LevelActivity {
     {
         super.startShakeActivity();
         ShakeActivity.nextLevel = "second";
+
     }
 }
