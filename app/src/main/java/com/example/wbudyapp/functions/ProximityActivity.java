@@ -57,7 +57,7 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
         proxValue.setText(sensorEvent.values[0]+"cm");
         androidx.constraintlayout.widget.ConstraintLayout rl = findViewById(R.id.activity_proximity);
 
-        if(sensorEvent.values[0] < 8) {
+        if(sensorEvent.values[0] < proximitySensor.getMaximumRange() ) {
             // Detected something nearby
             rl.setBackgroundColor(Color.RED);
         }
