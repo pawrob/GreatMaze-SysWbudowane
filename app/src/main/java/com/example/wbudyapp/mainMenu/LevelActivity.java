@@ -151,9 +151,20 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
             if(finished)
             {
-                MediaPlayer mp= MediaPlayer.create(this,R.raw.studnia);
+                MediaPlayer mp = MediaPlayer.create(this,R.raw.studnia);
                 mp.start();
+//                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+//                {
+//                    @Override
+//                    public void onCompletion(MediaPlayer mp)
+//                    {
+//                        mp.release();
+//                        mp = null;
+//
+//                    }
+//                });
                 startShakeActivity();
+
             }
 
 
