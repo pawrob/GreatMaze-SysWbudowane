@@ -100,9 +100,10 @@ public class ShakeActivity extends AppCompatActivity implements SensorEventListe
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         levelInfo.setText("Poziom: "+ nextLevel);
-        xValue.setText(sensorEvent.values[0]+"m/s2");
-        yValue.setText(sensorEvent.values[1]+"m/s2");
-        zValue.setText(sensorEvent.values[2]+"m/s2");
+        xValue.setText(sensorEvent.values[0]+"µT");
+        yValue.setText(sensorEvent.values[1]+"µT");
+        zValue.setText(sensorEvent.values[2]+"µT");
+        
         currentX = sensorEvent.values[0];
         currentY = sensorEvent.values[1];
         currentZ = sensorEvent.values[2];
