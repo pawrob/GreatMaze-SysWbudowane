@@ -5,45 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainMenu.SensorTest"
-    android:background="@android:color/background_dark">
-
-    <Button
-        android:id="@+id/lvlTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="#00FFFFFF"
-        android:onClick="checkLevel"
-        android:text="Check Levels"
-        android:textColor="#FFC107"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/proxCheck" />
+    android:background="@color/colorAccent">
 
     <Button
         android:id="@+id/gpsCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:background="#00FFFFFF"
+        android:background="@color/colorBtnBg"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:onClick="checkGps"
-        android:text="Check GPS"
-        android:textColor="#FFC107"
+        android:text="@string/check_gps"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/proxCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:background="#00FFFFFF"
+        android:background="@color/colorBtnBg"
         android:onClick="checkProx"
-        android:text="Check Proximity"
-        android:textColor="#FFC107"
+        android:text="@string/check_proximity"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gpsCheck" />
+
+    <Button
+        android:id="@+id/lvlTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorBtnBg"
+        android:onClick="checkLevel"
+        android:text="@string/check_levels"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proxCheck" />
+
+    <Button
+        android:id="@+id/lightCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorBtnBg"
+        android:onClick="checkLight"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/check_light_sensor"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvlTest" />
 </androidx.constraintlayout.widget.ConstraintLayout>

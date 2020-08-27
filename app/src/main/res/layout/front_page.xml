@@ -6,7 +6,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@color/colorAccent"
     >
 
 
@@ -27,7 +27,7 @@
         android:shadowColor="#000000"
         android:shadowRadius="50"
         android:text="@string/button"
-        android:textColor="#FBE62C"
+        android:textColor="@color/colorPrimary"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +44,8 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="4"
-        android:text="GREAT MAZE"
-        android:textColor="#FFEB3B"
+        android:text="@string/great_maze"
+        android:textColor="@color/colorPrimary"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
         android:background="#00FFFFFF"
         android:onClick="checkSensors"
         android:text="Functionality test"
-        android:textColor="#FFC107"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

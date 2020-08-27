@@ -3,6 +3,7 @@ package com.example.wbudyapp.mainMenu;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wbudyapp.R;
 import com.example.wbudyapp.functions.GpsActivity;
+import com.example.wbudyapp.functions.LightActivity;
 import com.example.wbudyapp.functions.ProximityActivity;
 
 import android.content.Intent;
@@ -21,6 +22,12 @@ public class SensorTest extends AppCompatActivity {
     {
         Intent proxCheck = new Intent(this, ProximityActivity.class);
         startActivity(proxCheck);
+    }
+
+    public void checkLight(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    {
+        Intent lightCheck = new Intent(this, LightActivity.class);
+        startActivity(lightCheck);
     }
 
     public void checkGps(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View

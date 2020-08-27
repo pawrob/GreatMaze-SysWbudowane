@@ -20,23 +20,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".mainMenu.SensorTest"></activity>
+        android:theme="@style/Theme.AppCompat.NoActionBar" >
+        <activity android:name=".mainMenu.SensorTest" />
         <activity
             android:name=".levels.BossLevel"
             android:label="@string/title_activity_boss_level"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".functions.TimeHandler"
             tools:ignore="Instantiatable" />
         <activity android:name=".functions.GpsActivity" />
         <activity android:name=".functions.ProximityActivity" />
+        <activity android:name=".functions.LightActivity" />
         <activity android:name=".mainMenu.TestLevels" />
         <activity android:name=".mainMenu.ShakeActivity" />
         <activity android:name=".mainMenu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

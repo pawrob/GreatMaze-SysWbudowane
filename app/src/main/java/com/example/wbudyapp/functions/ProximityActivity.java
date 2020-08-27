@@ -57,15 +57,17 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
             isProximitySensor = false;
         }
 
+    }
+    public void pressCheck(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    {
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
 
-                    Toast.makeText(getApplicationContext(),"Pressed!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Pressed!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @SuppressLint("SetTextI18n")

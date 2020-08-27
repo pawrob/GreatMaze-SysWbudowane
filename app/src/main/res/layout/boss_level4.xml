@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark">
+    android:background="@color/colorAccent">
 
 
     <pl.droidsonroids.gif.GifTextView
@@ -52,8 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
-        android:text="Sraskłacz"
-        android:textColor="#FFC107"
+        android:text="@string/srask_acz"
+        android:textColor="#BC934D"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/gifTextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +64,8 @@
         android:layout_width="274dp"
         android:layout_height="112dp"
         android:layout_marginBottom="296dp"
-        android:background="#FFC107"
-        android:text="BOSS DEFEATED!"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/boss_defeated"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
