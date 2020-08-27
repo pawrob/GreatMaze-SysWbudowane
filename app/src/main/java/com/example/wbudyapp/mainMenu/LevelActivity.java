@@ -38,10 +38,10 @@ public class LevelActivity extends Activity implements SensorEventListener {
     //Deklaracje tego, czego będziemy używać
     public String TAG = "My app ";
     public SensorManager sensorManager;
-    public Sensor accelerometer, thermometer;
+    public Sensor accelerometer, lightSensor;
     //Poniżej po prostu obiekty, które możemy znaleźć w first_level.xml
     public ImageView ball,studnia;
-    public androidx.constraintlayout.widget.ConstraintLayout background;
+    public ConstraintLayout backgroundColor;
     //Początkowe wartości bedziemy przchowywać w ArrayList bo nie ma co się jebać ze zwykłą tablicą
     public ArrayList<Float> initialAccelerometerValues;
     public ArrayList<View> walls;
@@ -83,7 +83,7 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
         ball = findViewById(R.id.ball);
         studnia = findViewById(R.id.studnia);
-        background = findViewById(R.id.background);
+        backgroundColor = findViewById(R.id.background);
 //        temperatureText = findViewById(R.id.temp);
 
 
@@ -99,24 +99,20 @@ public class LevelActivity extends Activity implements SensorEventListener {
 
         //deklaracja żyroskopu i stworzenie (zarejestrowanie) modułów nasłuchujących
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        thermometer = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        if(accelerometer != null )
-        {
+        if(accelerometer != null ) {
             sensorManager.registerListener( (SensorEventListener) this, accelerometer, SensorManager.SENSOR_DELAY_GAME );
             Log.d(TAG,"On create: listener has been launched");
         }
-        else
-        {
+        else {
             Log.v(TAG,"On create: listener is not available");
         }
-        if(thermometer != null )
-        {
-            sensorManager.registerListener( (SensorEventListener) this, thermometer, SensorManager.SENSOR_DELAY_NORMAL );
+        if(lightSensor != null ) {
+            sensorManager.registerListener( (SensorEventListener) this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL );
             Log.d(TAG,"On create: thermomether listener has been launched");
         }
-        else
-        {
+        else {
             Log.v(TAG,"On create: thermomether listener is not available");
         }
 
@@ -144,8 +140,6 @@ public class LevelActivity extends Activity implements SensorEventListener {
         }*/
         //No i tutaj jeśli sygnał jest z sensora magnetometru, to wykonują się takie czynności
         if( sensor.getType() == Sensor.TYPE_ACCELEROMETER ) {
-
-
             //Tutaj naturalnie dzielenie przez 5 jest tylko dlatego, żeby to nie zapierdalało jak się przechyli lekko ekran
 
             this.move(ball,walls,sensorEvent.values[0],sensorEvent.values[1]);
@@ -156,42 +150,31 @@ public class LevelActivity extends Activity implements SensorEventListener {
             if(ball.getY() < ( 0 - ball.getHeight() ) ) ball.setY(screenHeight);*/
             boolean finished = checkIfStudnia(ball,studnia);
 
-
             if(finished)
             {
                 MediaPlayer mp = MediaPlayer.create(this,R.raw.studnia);
                 mp.start();
-//                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-//                {
-//                    @Override
-//                    public void onCompletion(MediaPlayer mp)
-//                    {
-//                        mp.release();
-//                        mp = null;
-//
-//                    }
-//                });
                 startShakeActivity();
 
             }
 
 
         }
-        if(sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE)
-        {
-            androidx.constraintlayout.widget.ConstraintLayout rl = findViewById(R.id.background);
-//            rl.setBackgroundResource(R.drawable.desert);
-            if(sensorEvent.values[0] < 20){
-                //rl.setBackgroundResource(R.drawable.iceland);
-                rl.setBackgroundColor(Color.RED);
-////                background.setBackgroundColor(0xA833C5CA);
+
+        if( sensor.getType() == Sensor.TYPE_LIGHT ){
+
+            if(sensorEvent.values[0] < 10 ) {
+                backgroundColor.setBackgroundColor(getResources().getColor(R.color.colorDarkLevel));
             }
-            else {
-                //rl.setBackgroundResource(R.drawable.desert);
-                rl.setBackgroundColor(Color.GREEN);
+            else if(sensorEvent.values[0] >= 10 && sensorEvent.values[0] < 50) {
+                backgroundColor.setBackgroundColor(getResources().getColor(R.color.colorDIM));
             }
-//                background.setBackgroundColor(0xFFF4B648);
-//            temperatureText.setText(Float.toString(sensorEvent.values[0]));
+            else if(sensorEvent.values[0] >= 50 && sensorEvent.values[0] < 150) {
+                backgroundColor.setBackgroundColor(getResources().getColor(R.color.colorBRIGHT));
+            }
+            else if(sensorEvent.values[0] >= 150) {
+                backgroundColor.setBackgroundColor(getResources().getColor(R.color.colorVERYBRIGHT));
+            }
         }
 
     }

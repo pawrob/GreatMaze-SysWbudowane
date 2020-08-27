@@ -13,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +22,11 @@ import com.example.wbudyapp.R;
 
 public class LightActivity extends AppCompatActivity implements SensorEventListener {
 
+    public String TAG = "My app ";
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private ConstraintLayout backgroundColor;
     private TextView lightReading, lightLevel;
-    private boolean isLightSensor;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -46,11 +47,10 @@ public class LightActivity extends AppCompatActivity implements SensorEventListe
         if (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null) {
             lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
             sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-            isLightSensor = true;
-        }   // jeśli sensor niedostępny koniec apki
+            Log.d(TAG,"On create: light sensor listener has been launched");
+        }
         else {
-            Toast.makeText(getApplicationContext(), "Light sensor is not avaliable", Toast.LENGTH_SHORT).show();
-            isLightSensor = false;
+            Log.v(TAG,"On create: light sensor listener is not available");
         }
     }
 
