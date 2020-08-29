@@ -58,6 +58,7 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
         }
 
     }
+
     public void pressCheck(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
     {
         btnLoc.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +97,6 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     protected void onResume() {
         super.onResume();
         if(isProximitySensor){
-            // utworzenie nasłuchiwacza z odczytem co 2s
             sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_GAME);
         }
     }
@@ -112,8 +112,4 @@ public class ProximityActivity extends AppCompatActivity implements SensorEventL
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {}
 
-    public void checkPress(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
-    {
-
-    }
 }
