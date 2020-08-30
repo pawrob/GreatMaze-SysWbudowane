@@ -21,19 +21,19 @@ public class TestLevels extends AppCompatActivity {
     }
 
 
-    public void lvl1(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    public void lvl1(View view)
     {
         Intent startOfGame = new Intent(this, FirstLevel.class);
         startActivity(startOfGame);
     }
 
-    public void lvl2(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    public void lvl2(View view)
     {
         Intent startOfGame = new Intent(this, SecondLevel.class);
         startActivity(startOfGame);
     }
 
-    public void lvl3(View view) //metoda ta musi byc publiczna, byc voidem i miec jeden argument View
+    public void lvl3(View view)
     {
         Intent startOfGame = new Intent(this, ThirdLevel.class);
         startActivity(startOfGame);

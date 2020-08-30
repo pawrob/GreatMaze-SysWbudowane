@@ -1,11 +1,11 @@
 package com.example.wbudyapp.functions;
-import java.util.Date;
 
+import java.util.Date;
 
 public class TimeHandler {
 
-
     public static long startTimer(){
+
         return new Date().getTime();
     }
 
